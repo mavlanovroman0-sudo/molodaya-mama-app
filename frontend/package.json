@@ -1,0 +1,58 @@
+{
+  "name": "homeease-frontend",
+  "version": "2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start --host lan",
+    "web": "expo start --web --port 8083 --host lan",
+    "web:docker": "expo start --web --port 8081 --host lan",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "test": "jest",
+    "lint": "echo \"ESLint stub: add eslint config when ready\" && exit 0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~4.0.1",
+    "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-navigation/bottom-tabs": "^7.2.0",
+    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/native-stack": "^7.2.0",
+    "@sentry/react-native": "~6.10.0",
+    "expo": "~52.0.0",
+    "expo-asset": "~11.0.5",
+    "expo-constants": "~17.0.0",
+    "expo-device": "~7.0.0",
+    "expo-font": "~13.0.4",
+    "expo-linear-gradient": "~14.0.0",
+    "expo-linking": "~7.0.0",
+    "expo-location": "~18.0.0",
+    "expo-notifications": "~0.29.0",
+    "expo-status-bar": "~2.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.5",
+    "react-native-safe-area-context": "4.12.0",
+    "react-native-screens": "~4.4.0",
+    "react-native-web": "~0.19.13",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@types/jest": "^29.5.14",
+    "@types/react": "~18.3.12",
+    "jest": "^29.7.0",
+    "jest-expo": "~52.0.0",
+    "typescript": "~5.3.3"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFiles": [
+      "./jest.setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "private": true
+}

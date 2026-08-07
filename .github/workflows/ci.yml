@@ -1,0 +1,146 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  PYTHON_VERSION: "3.12"
+  NODE_VERSION: "20"
+
+jobs:
+  backend-test:
+    name: Backend tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: homeease
+          POSTGRES_PASSWORD: homeease_dev
+          POSTGRES_DB: homeease
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U homeease -d homeease"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql+asyncpg://homeease:homeease_dev@localhost:5432/homeease
+      REDIS_URL: redis://localhost:6379/0
+      JWT_SECRET: ci-test-jwt-secret
+      CRON_SECRET: ci-test-cron-secret
+      APP_ENV: development
+      SUBSCRIPTION_ENFORCE: "true"
+      ENABLE_SCHEDULER: "false"
+      PAYMENT_PROVIDER: mock
+      SENTRY_DSN: ""
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pytest with coverage
+        run: pytest tests/ --cov=app --cov-report=term-missing --cov-report=xml -v
+
+      - name: Upload coverage to Codecov (stub)
+        if: false
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: backend/coverage.xml
+          fail_ci_if_error: false
+
+      - name: Codecov stub notice
+        run: echo "Codecov upload skipped (set CODECOV_TOKEN secret to enable)"
+
+  frontend-test:
+    name: Frontend tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    env:
+      EXPO_PUBLIC_API_URL: http://localhost:8001
+      EXPO_PUBLIC_SENTRY_DSN: ""
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test -- --ci
+
+      - name: TypeScript check (optional)
+        continue-on-error: true
+        run: npm run typecheck
+
+  lint:
+    name: Lint (stubs)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Backend lint — Flake8 (stub)
+        continue-on-error: true
+        run: |
+          pip install flake8==7.1.1
+          cd backend
+          flake8 app tests --max-line-length=120 --extend-ignore=E501,W503 || echo "Flake8: review warnings (non-blocking stub)"
+
+      - name: Backend lint — Black check (stub)
+        continue-on-error: true
+        run: |
+          pip install black==24.10.0
+          cd backend
+          black --check app tests || echo "Black: formatting drift (non-blocking stub)"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Frontend lint — ESLint (stub)
+        continue-on-error: true
+        run: |
+          cd frontend
+          npm ci
+          npm run lint || echo "ESLint: configure rules (non-blocking stub)"

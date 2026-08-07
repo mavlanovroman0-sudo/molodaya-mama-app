@@ -1,0 +1,64 @@
+# HomeEase 2.0 — Codemagic (Expo / React Native)
+#
+# КРИТИЧНО (чтобы не повторить прошлый сбой):
+# 1) Codemagic и GitHub — ОДИН аккаунт / одна почта (владелец этого репозитория).
+# 2) Git root = эта папка репозитория (не moe-delo, не app3).
+# 3) Мобильное приложение в подпапке frontend/ — каждый скрипт делает cd frontend.
+# 4) В UI Codemagic лучше также указать Project path: frontend
+#
+# Package: com.homeease.app
+# См. docs/REPO_AND_CODEMAGIC.md
+
+workflows:
+  test-android-apk:
+    name: Test Android APK (HomeEase)
+    instance_type: mac_mini_m2
+    max_build_duration: 90
+    environment:
+      node: 20
+      vars:
+        PACKAGE_NAME: com.homeease.app
+    scripts:
+      - name: Guard — правильная папка frontend
+        script: |
+          set -euo pipefail
+          echo "CM_BUILD_DIR=$CM_BUILD_DIR"
+          test -f "$CM_BUILD_DIR/frontend/package.json"
+          test -f "$CM_BUILD_DIR/frontend/app.json"
+          test -f "$CM_BUILD_DIR/codemagic.yaml"
+          cd "$CM_BUILD_DIR/frontend"
+          echo "PWD=$(pwd)"
+          node -e "const p=require('./package.json'); if(!p.name) process.exit(1); console.log('package:', p.name)"
+      - name: Install dependencies
+        script: |
+          set -euo pipefail
+          cd "$CM_BUILD_DIR/frontend"
+          npm ci
+      - name: Run unit tests
+        script: |
+          set -euo pipefail
+          cd "$CM_BUILD_DIR/frontend"
+          npm test -- --ci --watchAll=false
+      - name: Export web (smoke)
+        script: |
+          set -euo pipefail
+          cd "$CM_BUILD_DIR/frontend"
+          npx expo export --platform web
+    artifacts:
+      - frontend/dist/**
+
+  test-eas-configured:
+    name: Check EAS config (HomeEase)
+    instance_type: linux
+    max_build_duration: 30
+    environment:
+      node: 20
+    scripts:
+      - name: Guard — frontend + eas.json
+        script: |
+          set -euo pipefail
+          test -f "$CM_BUILD_DIR/frontend/package.json"
+          test -f "$CM_BUILD_DIR/frontend/eas.json" -o -f "$CM_BUILD_DIR/eas.json"
+          cd "$CM_BUILD_DIR/frontend"
+          test -f app.json
+          node -e "const a=require('./app.json'); const id=a.expo?.android?.package; if(id!=='com.homeease.app'){console.error('bad package',id); process.exit(1)} console.log('android.package OK', id)"

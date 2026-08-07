@@ -1,0 +1,8 @@
+# Локальные переопределения Docker Compose
+# Postgres/Redis без конфликта с другими проектами (logistics_* на 5432/6379)
+services:
+  postgres:
+    ports: !reset
+      - "5433:5432"
+  redis:
+    ports: !reset []

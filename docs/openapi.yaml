@@ -1,0 +1,333 @@
+openapi: 3.1.0
+info:
+  title: HomeEase 2.0 API
+  version: 2.0.0
+  description: |
+    Кроссплатформенное супер-приложение для домохозяек и молодых мам.
+    Swagger UI: http://localhost:8000/docs
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Development
+
+tags:
+  - name: auth
+    description: Регистрация и авторизация
+  - name: geo
+    description: Геолокация и авто-локализация
+  - name: localization
+    description: Языки интерфейса
+  - name: roles
+    description: Переключение ролей и дашборд
+  - name: stores
+    description: Магазины
+  - name: delivery
+    description: Единая доставка
+  - name: smart-home
+    description: Умный дом
+  - name: mom-tracker
+    description: Трекер мамы
+  - name: ai
+    description: AI заглушки
+  - name: ble
+    description: BLE брелок
+
+paths:
+  /auth/register:
+    post:
+      tags: [auth]
+      summary: Регистрация с авто-локализацией
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string, minLength: 8 }
+                display_name: { type: string }
+      responses:
+        '200':
+          description: JWT токен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+
+  /auth/login:
+    post:
+      tags: [auth]
+      summary: Вход
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+
+  /auth/me:
+    get:
+      tags: [auth]
+      security: [{ bearerAuth: [] }]
+      summary: Текущий пользователь
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+
+  /geo/detect:
+    post:
+      tags: [geo, localization]
+      summary: Автоопределение языка и района
+      description: |
+        Принимает IP (из заголовков), координаты GPS или Accept-Language.
+        Россия→ru, Казахстан→kk, Узбекистан→uz, Таджикистан→tg, Грузия→ka, Киргизия→ky
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeoDetectRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoDetectResponse'
+
+  /geo/language:
+    patch:
+      tags: [localization]
+      security: [{ bearerAuth: [] }]
+      summary: Ручная смена языка
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  enum: [ru, kk, uz, tg, ka, ky]
+                auto_detect_language: { type: boolean }
+
+  /roles/switch:
+    post:
+      tags: [roles]
+      security: [{ bearerAuth: [] }]
+      summary: Переключение роли
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  enum: [housewife, young_mom]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+
+  /roles/dashboard:
+    get:
+      tags: [roles]
+      security: [{ bearerAuth: [] }]
+      summary: Текущий дашборд
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+
+  /stores/delivery:
+    get:
+      tags: [delivery]
+      security: [{ bearerAuth: [] }]
+      summary: Единый экран доставки
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryHubResponse'
+
+  /stores/favorites:
+    post:
+      tags: [stores]
+      security: [{ bearerAuth: [] }]
+      summary: Добавить избранный магазин
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store_id: { type: string, format: uuid }
+                notes: { type: string }
+
+  /smart-home/devices:
+    get:
+      tags: [smart-home]
+      security: [{ bearerAuth: [] }]
+      summary: Список устройств
+    post:
+      tags: [smart-home]
+      security: [{ bearerAuth: [] }]
+      summary: Добавить устройство
+
+  /smart-home/devices/{device_id}/command:
+    post:
+      tags: [smart-home]
+      security: [{ bearerAuth: [] }]
+      summary: Команда устройству
+      parameters:
+        - name: device_id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                command: { type: string }
+                params: { type: object }
+
+  /mom/babies/{baby_id}/summary:
+    get:
+      tags: [mom-tracker]
+      security: [{ bearerAuth: [] }]
+      summary: Сводка трекера с прогнозами
+
+  /mom/babies/{baby_id}/feeding:
+    post:
+      tags: [mom-tracker]
+      security: [{ bearerAuth: [] }]
+      summary: Лог кормления
+
+  /mom/babies/{baby_id}/sleep:
+    post:
+      tags: [mom-tracker]
+      security: [{ bearerAuth: [] }]
+      summary: Лог сна
+
+  /mom/babies/{baby_id}/diaper:
+    post:
+      tags: [mom-tracker]
+      security: [{ bearerAuth: [] }]
+      summary: Лог подгузника
+
+  /ai/price-prediction:
+    post:
+      tags: [ai]
+      security: [{ bearerAuth: [] }]
+      summary: ИИ-скаут «Где дешевле»
+
+  /ai/ingredient-substitute:
+    post:
+      tags: [ai]
+      security: [{ bearerAuth: [] }]
+      summary: «Вкус мира» — замена ингредиентов
+
+  /ble/register:
+    post:
+      tags: [ble]
+      security: [{ bearerAuth: [] }]
+      summary: Регистрация BLE брелока
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [device_mac]
+              properties:
+                device_mac: { type: string }
+
+  /ble/event:
+    post:
+      tags: [ble]
+      summary: Событие BLE брелока
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    TokenResponse:
+      type: object
+      properties:
+        access_token: { type: string }
+        token_type: { type: string, default: bearer }
+
+    UserResponse:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string }
+        active_role: { type: string, enum: [housewife, young_mom] }
+        language: { type: string, enum: [ru, kk, uz, tg, ka, ky] }
+        district: { type: string, nullable: true }
+        token_balance: { type: integer }
+
+    GeoDetectRequest:
+      type: object
+      properties:
+        ip: { type: string }
+        latitude: { type: number }
+        longitude: { type: number }
+        accept_language: { type: string }
+
+    GeoDetectResponse:
+      type: object
+      properties:
+        language: { type: string }
+        country_code: { type: string }
+        city: { type: string }
+        district: { type: string }
+        microdistrict: { type: string }
+        latitude: { type: number }
+        longitude: { type: number }
+
+    DashboardResponse:
+      type: object
+      properties:
+        role: { type: string }
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              title_key: { type: string }
+              icon: { type: string }
+              route: { type: string }
+        token_balance: { type: integer }
+        shared_data: { type: object }
+
+    DeliveryHubResponse:
+      type: object
+      properties:
+        district: { type: string }
+        favorite_stores: { type: array }
+        available_slots: { type: array }
+        multi_store_cart_supported: { type: boolean }

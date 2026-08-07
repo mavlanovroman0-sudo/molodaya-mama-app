@@ -1,0 +1,5 @@
+# Зависимости для backend/scripts/
+yookassa==3.4.0
+stripe==11.4.0
+httpx==0.28.1
+pydantic-settings==2.6.1

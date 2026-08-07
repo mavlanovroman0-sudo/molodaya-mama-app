@@ -1,0 +1,11 @@
+# Place TLS certificates here for nginx (production)
+#
+# fullchain.pem  — certificate chain (Let's Encrypt)
+# privkey.pem    — private key
+#
+# Generate with certbot:
+#   certbot certonly --standalone -d your-domain.com
+#   cp /etc/letsencrypt/live/your-domain.com/fullchain.pem docs/ssl/
+#   cp /etc/letsencrypt/live/your-domain.com/privkey.pem docs/ssl/
+#
+# Never commit real private keys to git.

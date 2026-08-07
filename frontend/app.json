@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "HomeEase",
+    "slug": "homeease",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "homeease",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F8F4F0"
+    },
+    "android": {
+      "package": "com.homeease.app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.homeease.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-location",
+      "expo-notifications",
+      "expo-asset",
+      "expo-font"
+    ]
+  }
+}

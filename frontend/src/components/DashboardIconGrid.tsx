@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 4,
   },
   label: {
+    fontFamily: 'Arial, "Segoe UI", sans-serif',
     marginTop: 6,
     fontSize: 12,
     fontWeight: '600',

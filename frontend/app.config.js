@@ -1,19 +1,13 @@
 /**
- * Expo configuration for HomeEase 2.0.
+ * Expo configuration.
  *
- * Идентификаторы приложения (замените перед публикацией в магазины):
- *   android.package      — com.homeease.app  → ваш уникальный package name
- *   ios.bundleIdentifier   — com.homeease.app  → ваш Bundle ID в Apple Developer
- *
- * Deep links (схема homeease://):
+ * Deep links:
  *   homeease://payment/success?payment_id=...
  *   homeease://payment/cancel
- *   homeease://subscription/success
- *   homeease://subscription/cancel
  */
 module.exports = {
   expo: {
-    name: 'HomeEase',
+    name: 'молодая мама',
     slug: 'homeease',
     version: '2.0.0',
     orientation: 'portrait',
@@ -26,7 +20,6 @@ module.exports = {
       backgroundColor: '#F8F4F0',
     },
     android: {
-      // Заглушка — замените на финальный package перед RuStore / Google Play
       package: 'com.homeease.app',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
@@ -38,16 +31,15 @@ module.exports = {
           autoVerify: true,
           data: [
             { scheme: 'homeease' },
-            { scheme: 'https', host: 'homeease.app', pathPrefix: '/subscription' },
+            { scheme: 'https', host: 'my-molodaya-mama.ru', pathPrefix: '/subscription' },
           ],
           category: ['BROWSABLE', 'DEFAULT'],
         },
       ],
     },
     ios: {
-      // Заглушка — замените на финальный Bundle ID перед App Store
       bundleIdentifier: 'com.homeease.app',
-      associatedDomains: ['applinks:homeease.app'],
+      associatedDomains: ['applinks:my-molodaya-mama.ru'],
     },
     web: {
       bundler: 'metro',

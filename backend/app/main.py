@@ -1,4 +1,4 @@
-"""HomeEase 2.0 API — FastAPI application."""
+"""API — FastAPI application."""
 
 import logging
 import os
@@ -107,12 +107,12 @@ _redoc = None if _IS_PRODUCTION else "/redoc"
 _openapi = None if _IS_PRODUCTION else "/openapi.json"
 
 app = FastAPI(
-    title="HomeEase 2.0 API",
+    title="молодая мама API",
     description="""
 Кроссплатформенное супер-приложение для домохозяек и молодых мам.
 
 ## Возможности
-- Двухролевая архитектура (Домохозяйка / Молодая мама)
+- Двухролевая архитектура (Опытная мама / Молодая мама)
 - Автоопределение языка (6 языков) и геолокация района
 - Избранные магазины и единая доставка
 - Умный дом (Home Assistant, Яндекс, Google)
@@ -188,4 +188,4 @@ app.include_router(internal.router, prefix="/api/v1")
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "app": "HomeEase 2.0"}
+    return {"status": "ok", "app": "молодая мама"}

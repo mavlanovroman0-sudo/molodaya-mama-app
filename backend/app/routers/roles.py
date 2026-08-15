@@ -18,7 +18,7 @@ async def switch_role(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Переключение между «Домохозяйка» и «Молодая мама»."""
+    """Переключение между «Опытная мама» и «Молодая мама»."""
     user.active_role = body.role
     await db.flush()
     return get_dashboard(user.active_role, user.token_balance, user.district)

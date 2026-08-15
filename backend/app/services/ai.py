@@ -8,7 +8,7 @@ from typing import Any
 # --- Промпты для OpenAI (отправлять в system + user messages) ---
 
 PRICE_PREDICTION_PROMPT = """
-Ты — ИИ-скаут цен для гиперлокального приложения HomeEase.
+Ты — ИИ-скаут цен для гиперлокального приложения «молодая мама».
 Проанализируй историю цен на продукт в районе пользователя.
 Верни JSON: {{"product": str, "current_price": float, "predicted_low": float,
 "predicted_date": str, "confidence": float, "cheaper_stores": [{{"name": str, "price": float}}],

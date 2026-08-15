@@ -24,8 +24,8 @@ export function HousewifeDashboard({ navigation }: Props) {
           onPress: () => navigation.navigate('Barter'),
         },
         {
-          icon: 'checkbox-outline' as const,
-          label: t('tabs.tasks'),
+          icon: 'stats-chart-outline' as const,
+          label: t('tabs.report'),
           onPress: () => navigation.navigate('Report'),
         },
       ],
@@ -34,11 +34,6 @@ export function HousewifeDashboard({ navigation }: Props) {
           icon: 'home-outline' as const,
           label: t('tabs.smart_home'),
           onPress: () => navigation.navigate('SmartHome'),
-        },
-        {
-          icon: 'stats-chart-outline' as const,
-          label: t('tabs.report'),
-          onPress: () => navigation.navigate('Report'),
         },
       ],
     ],

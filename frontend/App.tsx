@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Alert, Platform, StyleSheet, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -34,7 +34,18 @@ import { initSentry, registerNavigationContainer, wrapWithSentry } from './src/s
 
 initSentry();
 
+function ensureReadableWebFont() {
+  if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+  document.documentElement.lang = 'ru';
+  if (document.getElementById('molodaya-mama-base-font')) return;
+  const style = document.createElement('style');
+  style.id = 'molodaya-mama-base-font';
+  style.textContent =
+    'html, body, #root { font-family: Arial, "Segoe UI", sans-serif !important; }';
+  document.head.appendChild(style);
+}
 
+ensureReadableWebFont();
 
 function AppContent() {
 
@@ -160,19 +171,19 @@ function App() {
 
         requestSubscriptionRefresh();
 
-        Alert.alert('HomeEase', t('subscription.payment_success'));
+        Alert.alert('молодая мама', t('subscription.payment_success'));
 
       } catch {
 
         requestSubscriptionRefresh();
 
-        Alert.alert('HomeEase', t('subscription.checkout_hint'));
+        Alert.alert('молодая мама', t('subscription.checkout_hint'));
 
       }
 
     } else if (isSubscriptionCancelUrl(url)) {
 
-      Alert.alert('HomeEase', t('subscription.payment_cancelled'));
+      Alert.alert('молодая мама', t('subscription.payment_cancelled'));
 
     }
 

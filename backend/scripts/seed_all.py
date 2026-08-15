@@ -41,7 +41,7 @@ DEMO_PASSWORD = "demo1234"
 USERS = [
     {
         "email": "housewife@demo.homeease",
-        "display_name": "Домохозяйка Даша",
+        "display_name": "Опытная мама Даша",
         "role": UserRole.housewife,
         "lat": 55.7558,
         "lon": 37.6173,

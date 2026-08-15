@@ -25,15 +25,15 @@
       "role_young_mom": "Молодая мама"
     },
     "roles": {
-      "housewife": "Домохозяйка",
-      "experienced_mom": "Опытная",
+      "housewife": "Опытная мама",
+      "experienced_mom": "Опытная мама",
       "housewife_desc": "Управление домом, бюджет, закупки, бартер",
-      "young_mom": "Молодая",
+      "young_mom": "Молодая мама",
       "young_mom_desc": "Трекер малыша, сон, кормление, помощь"
     },
     "dashboard": {
-      "housewife_stub": "Дашборд домохозяйки",
-      "young_mom_stub": "Дашборд молодой мамы",
+      "housewife_stub": "Раздел опытной мамы",
+      "young_mom_stub": "Раздел молодой мамы",
       "open_features": "Открыть функции"
     },
     "features": {
@@ -84,8 +84,8 @@
     "legal": {
       "privacy_title": "Политика конфиденциальности",
       "terms_title": "Условия использования",
-      "privacy_body": "HomeEase 2.0 («мы») обрабатывает персональные данные для предоставления сервиса.\n\n1. Какие данные собираем: email, имя профиля, выбранная роль, геолокация (страна, город, район), данные о подписке, история использования функций приложения.\n\n2. Цели обработки: авторизация, персонализация, расчёт тарифов по региону, работа подписки, реферальная программа, техническая поддержка.\n\n3. Передача третьим лицам: платёжные провайдеры (YooKassa, RuStore, Т-Банк) получают только данные, необходимые для оплаты. Мы не продаём персональные данные.\n\n4. Хранение: данные хранятся на защищённых серверах. Вы можете запросить удаление аккаунта через поддержку.\n\n5. Cookies и аналитика: веб-версия может использовать технические cookie; при наличии SENTRY_DSN ошибки отправляются в Sentry без персональных данных.\n\n6. Контакты: support@homeease.app\n\nДата обновления: июнь 2026.",
-      "terms_body": "Условия использования HomeEase 2.0\n\n1. Сервис предоставляется по подписке HomeEase Premium с пробным периодом 14 дней.\n\n2. Оплата: тарифы указаны в приложении с учётом НДС. Подписка продлевается автоматически на выбранный период (месяц или год), если не отменена.\n\n3. Отмена: доступна в разделе «Тарифы и подписка». Доступ сохраняется до конца оплаченного периода.\n\n4. Возвраты: в соответствии с законодательством вашей страны и правилами платёжного провайдера.\n\n5. Ответственность: сервис предоставляется «как есть». Рекомендации AI и трекера малыша не заменяют консультацию врача.\n\n6. Запрещено: нарушение законодательства, спам, попытки взлома сервиса.\n\n7. Изменения: мы можем обновлять условия с уведомлением в приложении.\n\nИспользуя сервис, вы соглашаетесь с настоящими условиями и политикой конфиденциальности.",
+      "privacy_body": "Сервис «молодая мама» («мы») обрабатывает персональные данные для предоставления сервиса.\n\n1. Какие данные собираем: email, имя профиля, выбранная роль, геолокация (страна, город, район), данные о подписке, история использования функций приложения.\n\n2. Цели обработки: авторизация, персонализация, расчёт тарифов по региону, работа подписки, реферальная программа, техническая поддержка.\n\n3. Передача третьим лицам: платёжные провайдеры (YooKassa, RuStore, Т-Банк) получают только данные, необходимые для оплаты. Мы не продаём персональные данные.\n\n4. Хранение: данные хранятся на защищённых серверах. Вы можете запросить удаление аккаунта через поддержку.\n\n5. Cookies и аналитика: веб-версия может использовать технические cookie; при наличии SENTRY_DSN ошибки отправляются в Sentry без персональных данных.\n\n6. Контакты: support@my-molodaya-mama.ru\n\nДата обновления: август 2026.",
+      "terms_body": "Условия использования сервиса «молодая мама»\n\n1. Сервис предоставляется с пробным периодом 14 дней, затем нужен тариф.\n\n2. Оплата: тарифы указаны в приложении с учётом НДС. Это разовый платёж через ЮKassa: деньги списываются только когда вы нажимаете «Оформить» и подтверждаете оплату. Автоматического продления нет.\n\n3. Отмена: доступна в разделе «Тарифы и подписка». Доступ сохраняется до конца оплаченного периода.\n\n4. Возвраты: в соответствии с законодательством вашей страны и правилами платёжного провайдера.\n\n5. Ответственность: сервис предоставляется «как есть». Рекомендации и трекер малыша не заменяют консультацию врача.\n\n6. Запрещено: нарушение законодательства, спам, попытки взлома сервиса.\n\n7. Изменения: мы можем обновлять условия с уведомлением в приложении.\n\nИспользуя сервис, вы соглашаетесь с настоящими условиями и политикой конфиденциальности.",
       "accept_prefix": "Регистрируясь, вы соглашаетесь с",
       "privacy_link": "Политикой конфиденциальности",
       "terms_link": "Условиями использования",
@@ -96,7 +96,7 @@
       "invite_code": "Ваш код",
       "share_link": "Поделиться",
       "invite_hint": "Делитесь кодом — вы получите 50 жетонов, друг — 20",
-      "invite_text": "Присоединяйся к HomeEase по моей ссылке: {code} https://homeease.app/ref/{code}",
+      "invite_text": "Присоединяйся к «молодая мама» по моей ссылке: {code} https://my-molodaya-mama.ru/ref/{code}",
       "referral_stats": "Ваша статистика",
       "referral_bonus": "заработано жетонов",
       "invite_reminder_title": "Пригласите друзей",
@@ -104,8 +104,8 @@
       "invite_banner_text": "Пригласи друга и получи 50 жетонов!",
       "invite_banner_button": "Пригласить",
       "share_achievement": "Расскажите друзьям!",
-      "share_achievement_message": "Я экономлю с HomeEase! Присоединяйся: https://homeease.app",
-      "share_achievement_prompt": "Отличная работа! Расскажите друзьям о HomeEase",
+      "share_achievement_message": "Я пользуюсь приложением «молодая мама»! Присоединяйся: https://my-molodaya-mama.ru",
+      "share_achievement_prompt": "Отличная работа! Расскажите друзьям о «молодая мама»",
       "demo_shopping_list": "+ Добавить список покупок (демо)"
     },
     "tabs": {
@@ -194,7 +194,7 @@
       "diaper": "Подгузник"
     },
     "subscription": {
-      "title": "HomeEase Premium",
+      "title": "Подписка",
       "plans": "Тарифы и подписка",
       "subtitle": "Полный доступ ко всем функциям",
       "trial_banner": "{days} дней бесплатно",
@@ -281,8 +281,8 @@
     "legal": {
       "privacy_title": "Құпиялылық саясаты",
       "terms_title": "Пайдалану шарттары",
-      "privacy_body": "HomeEase 2.0 email, профиль деректері мен геолокацияны қызмет көрсету үшін өңдейді. Деректер төлем провайдерлерінен (YooKassa, RuStore, Т-Банк) басқа үшінші тұлғаларға берілмейді.",
-      "terms_body": "HomeEase Premium жазылымы таңдалған тариф бойынша автоматты ұзартылады. Бас тарту қолданбада қолжетімді. Қызметті пайдалану шарттармен келісесіз.",
+      "privacy_body": "молодая мама email, профиль деректері мен геолокацияны қызмет көрсету үшін өңдейді. Деректер төлем провайдерлерінен (YooKassa, RuStore, Т-Банк) басқа үшінші тұлғаларға берілмейді.",
+      "terms_body": "молодая мама жазылымы таңдалған тариф бойынша автоматты ұзартылады. Бас тарту қолданбада қолжетімді. Қызметті пайдалану шарттармен келісесіз.",
       "accept_prefix": "Тіркелу арқылы сіз келісесіз",
       "privacy_link": "Құпиялылық саясаты",
       "terms_link": "Пайдалану шарттары",
@@ -293,7 +293,7 @@
       "invite_code": "Сіздің кодыңыз",
       "share_link": "Бөлісу",
       "invite_hint": "Кодты бөлісіңіз — сіз 50 жетон, досыңыз 20 жетон алады",
-      "invite_text": "HomeEase-ке менің сілтемеммен қосыл: {code} https://homeease.app/ref/{code}",
+      "invite_text": "молодая мама-ке менің сілтемеммен қосыл: {code} https://my-molodaya-mama.ru/ref/{code}",
       "referral_stats": "Статистика",
       "referral_bonus": "жетон табылды",
       "invite_reminder_title": "Достарды шақырыңыз",
@@ -301,8 +301,8 @@
       "invite_banner_text": "Досыңды шақыр — 50 жетон ал!",
       "invite_banner_button": "Шақыру",
       "share_achievement": "Достарға айтыңыз!",
-      "share_achievement_message": "Мен HomeEase-пен үнемдеймін! https://homeease.app",
-      "share_achievement_prompt": "Керемет! HomeEase туралы достарға айтыңыз",
+      "share_achievement_message": "Мен молодая мама-пен үнемдеймін! https://my-molodaya-mama.ru",
+      "share_achievement_prompt": "Керемет! молодая мама туралы достарға айтыңыз",
       "demo_shopping_list": "+ Сатып алу тізімі (демо)"
     },
     "tabs": {
@@ -402,7 +402,7 @@
       "normal": "Режим кормления в норме"
     },
     "subscription": {
-      "title": "HomeEase Premium",
+      "title": "молодая мама",
       "plans": "Тарифтер мен жазылым",
       "subtitle": "Барлық функцияларға толық қол жеткізу",
       "trial_banner": "{days} күн тегін",
@@ -489,8 +489,8 @@
     "legal": {
       "privacy_title": "Maxfiylik siyosati",
       "terms_title": "Foydalanish shartlari",
-      "privacy_body": "HomeEase 2.0 xizmat ko'rsatish uchun email, profil va geolokatsiya ma'lumotlarini qayta ishlaydi. Ma'lumotlar to'lov provayderlaridan (YooKassa, RuStore, T-Bank) tashqari uchinchi shaxslarga berilmaydi.",
-      "terms_body": "HomeEase Premium obunasi tanlangan tarif bo'yicha avtomatik uzaytiriladi. Bekor qilish ilovada mavjud. Xizmatdan foydalanish shartlarga rozilik bildiradi.",
+      "privacy_body": "молодая мама xizmat ko'rsatish uchun email, profil va geolokatsiya ma'lumotlarini qayta ishlaydi. Ma'lumotlar to'lov provayderlaridan (YooKassa, RuStore, T-Bank) tashqari uchinchi shaxslarga berilmaydi.",
+      "terms_body": "молодая мама obunasi tanlangan tarif bo'yicha avtomatik uzaytiriladi. Bekor qilish ilovada mavjud. Xizmatdan foydalanish shartlarga rozilik bildiradi.",
       "accept_prefix": "Ro'yxatdan o'tish orqali siz rozilik bildirasiz",
       "privacy_link": "Maxfiylik siyosati",
       "terms_link": "Foydalanish shartlari",
@@ -501,7 +501,7 @@
       "invite_code": "Sizning kodingiz",
       "share_link": "Ulashish",
       "invite_hint": "Kodni ulashing — siz 50 jeton, do'stingiz 20 jeton oladi",
-      "invite_text": "HomeEase-ga mening havolam bilan qo'shil: {code} https://homeease.app/ref/{code}",
+      "invite_text": "молодая мама-ga mening havolam bilan qo'shil: {code} https://my-molodaya-mama.ru/ref/{code}",
       "referral_stats": "Statistika",
       "referral_bonus": "jeton topildi",
       "invite_reminder_title": "Do'stlarni taklif qiling",
@@ -509,8 +509,8 @@
       "invite_banner_text": "Do'stingni taklif qil — 50 jeton ol!",
       "invite_banner_button": "Taklif qilish",
       "share_achievement": "Do'stlarga ayting!",
-      "share_achievement_message": "Men HomeEase bilan tejayman! https://homeease.app",
-      "share_achievement_prompt": "Ajoyib! HomeEase haqida do'stlarga ayting",
+      "share_achievement_message": "Men молодая мама bilan tejayman! https://my-molodaya-mama.ru",
+      "share_achievement_prompt": "Ajoyib! молодая мама haqida do'stlarga ayting",
       "demo_shopping_list": "+ Xaridlar ro'yxati (demo)"
     },
     "tabs": {
@@ -610,7 +610,7 @@
       "normal": "Режим кормления в норме"
     },
     "subscription": {
-      "title": "HomeEase Premium",
+      "title": "молодая мама",
       "plans": "Tariflar va obuna",
       "subtitle": "Barcha funksiyalarga to'liq kirish",
       "trial_banner": "{days} kun bepul",
@@ -697,8 +697,8 @@
     "legal": {
       "privacy_title": "Сиёсати махфият",
       "terms_title": "Шартҳои истифода",
-      "privacy_body": "HomeEase 2.0 барои хизматрасонӣ email, маълумоти профил ва геолокатсияро коркард мекунад. Маълумот ба тарафҳои сеюм, ба ғайр аз провайдерҳои пардохт (YooKassa, RuStore, Т-Банк), дода намешавад.",
-      "terms_body": "Обунаи HomeEase Premium мувофиқи тарифи интихобшуда ба таври худкор тамдид мешавад. Бекор кардан дар барнома дастрас аст.",
+      "privacy_body": "молодая мама барои хизматрасонӣ email, маълумоти профил ва геолокатсияро коркард мекунад. Маълумот ба тарафҳои сеюм, ба ғайр аз провайдерҳои пардохт (YooKassa, RuStore, Т-Банк), дода намешавад.",
+      "terms_body": "Обунаи молодая мама мувофиқи тарифи интихобшуда ба таври худкор тамдид мешавад. Бекор кардан дар барнома дастрас аст.",
       "accept_prefix": "Бо бақайдгирӣ шумо розӣ мешавед",
       "privacy_link": "Сиёсати махфият",
       "terms_link": "Шартҳои истифода",
@@ -709,7 +709,7 @@
       "invite_code": "Рамзи шумо",
       "share_link": "Мубодила",
       "invite_hint": "Рамзро мубодила кунед — шумо 50 жетон, дӯст 20 жетон мегирад",
-      "invite_text": "Ба HomeEase бо истиноди ман пайваст шав: {code} https://homeease.app/ref/{code}",
+      "invite_text": "Ба молодая мама бо истиноди ман пайваст шав: {code} https://my-molodaya-mama.ru/ref/{code}",
       "referral_stats": "Омор",
       "referral_bonus": "жетонҳои ба даст омада",
       "invite_reminder_title": "Дӯстонро даъват кунед",
@@ -717,8 +717,8 @@
       "invite_banner_text": "Дӯстро даъват кун — 50 жетон гир!",
       "invite_banner_button": "Даъват",
       "share_achievement": "Ба дӯстон гӯед!",
-      "share_achievement_message": "Ман бо HomeEase сарфа мекунам! https://homeease.app",
-      "share_achievement_prompt": "Олӣ! Дар бораи HomeEase ба дӯстон гӯед",
+      "share_achievement_message": "Ман бо молодая мама сарфа мекунам! https://my-molodaya-mama.ru",
+      "share_achievement_prompt": "Олӣ! Дар бораи молодая мама ба дӯстон гӯед",
       "demo_shopping_list": "+ Рӯйхати харид (демо)"
     },
     "tabs": {
@@ -818,7 +818,7 @@
       "normal": "Режим кормления в норме"
     },
     "subscription": {
-      "title": "HomeEase Premium",
+      "title": "молодая мама",
       "plans": "Тарофаҳо ва обуна",
       "subtitle": "Дастрасии пурра ба ҳамаи функсияҳо",
       "trial_banner": "{days} рӯз ройгон",
@@ -905,8 +905,8 @@
     "legal": {
       "privacy_title": "კონფიდენციალურობის პოლიტიკა",
       "terms_title": "გამოყენების პირობები",
-      "privacy_body": "HomeEase 2.0 ამუშავებს email-ს, პროფილისა და გეოლოკაციის მონაცემებს სერვისისთვის. მონაცემები არ გადაეცემა მესამე მხარეს, გარდა გადახდის პროვაიდერებისა (YooKassa, RuStore, T-Bank).",
-      "terms_body": "HomeEase Premium გამოწერა ავტომატურად გრძელდება არჩეული ტარიფით. გაუქმება ხელმისაწვდომია აპში.",
+      "privacy_body": "молодая мама ამუშავებს email-ს, პროფილისა და გეოლოკაციის მონაცემებს სერვისისთვის. მონაცემები არ გადაეცემა მესამე მხარეს, გარდა გადახდის პროვაიდერებისა (YooKassa, RuStore, T-Bank).",
+      "terms_body": "молодая мама გამოწერა ავტომატურად გრძელდება არჩეული ტარიფით. გაუქმება ხელმისაწვდომია აპში.",
       "accept_prefix": "რეგისტრაციით თქვენ ეთანხმებით",
       "privacy_link": "კონფიდენციალურობის პოლიტიკას",
       "terms_link": "გამოყენების პირობებს",
@@ -917,7 +917,7 @@
       "invite_code": "შენი კოდი",
       "share_link": "გაზიარება",
       "invite_hint": "გააზიარე კოდი — შენ 50 ჟეტონი, მეგობარი 20",
-      "invite_text": "შემოუერთდი HomeEase-ს ჩემი ბმულით: {code} https://homeease.app/ref/{code}",
+      "invite_text": "შემოუერთდი молодая мама-ს ჩემი ბმულით: {code} https://my-molodaya-mama.ru/ref/{code}",
       "referral_stats": "სტატისტიკა",
       "referral_bonus": "მიღებული ჟეტონები",
       "invite_reminder_title": "მოიწვიე მეგობრები",
@@ -925,8 +925,8 @@
       "invite_banner_text": "მოიწვიე მეგობარი — 50 ჟეტონი!",
       "invite_banner_button": "მოწვევა",
       "share_achievement": "გააზიარე მეგობრებთან!",
-      "share_achievement_message": "ვეკონომებ HomeEase-ით! https://homeease.app",
-      "share_achievement_prompt": "შესანიშნავია! მოუყევი მეგობრებს HomeEase-ის შესახებ",
+      "share_achievement_message": "ვეკონომებ молодая мама-ით! https://my-molodaya-mama.ru",
+      "share_achievement_prompt": "შესანიშნავია! მოუყევი მეგობრებს молодая мама-ის შესახებ",
       "demo_shopping_list": "+ საყიდლების სია (დემო)"
     },
     "tabs": {
@@ -1026,7 +1026,7 @@
       "normal": "Режим кормления в норме"
     },
     "subscription": {
-      "title": "HomeEase Premium",
+      "title": "молодая мама",
       "plans": "ტარიფები და გამოწერა",
       "subtitle": "სრული წვდომა ყველა ფუნქციაზე",
       "trial_banner": "{days} დღე უფასოდ",
@@ -1113,8 +1113,8 @@
     "legal": {
       "privacy_title": "Купуялык саясаты",
       "terms_title": "Колдонуу шарттары",
-      "privacy_body": "HomeEase 2.0 кызмат көрсөтүү үчүн email, профиль жана геолокация маалыматтарын иштетет. Маалыматтар төлөм провайдерлеринен (YooKassa, RuStore, Т-Банк) башка үчүнчү жактарга берилбейт.",
-      "terms_body": "HomeEase Premium жазылуу тандалган тариф боюнча автоматтык узартылат. Жокко чыгаруу колдонмодо жеткиликтүү.",
+      "privacy_body": "молодая мама кызмат көрсөтүү үчүн email, профиль жана геолокация маалыматтарын иштетет. Маалыматтар төлөм провайдерлеринен (YooKassa, RuStore, Т-Банк) башка үчүнчү жактарга берилбейт.",
+      "terms_body": "молодая мама жазылуу тандалган тариф боюнча автоматтык узартылат. Жокко чыгаруу колдонмодо жеткиликтүү.",
       "accept_prefix": "Катталуу менен сиз макулсуз",
       "privacy_link": "Купуялык саясаты",
       "terms_link": "Колдонуу шарттары",
@@ -1125,7 +1125,7 @@
       "invite_code": "Сиздин кодуңуз",
       "share_link": "Бөлүшүү",
       "invite_hint": "Коду бөлүшүңүз — сиз 50 жетон, дос 20 жетон алат",
-      "invite_text": "HomeEase-ке менин шилтемем менен кошул: {code} https://homeease.app/ref/{code}",
+      "invite_text": "молодая мама-ке менин шилтемем менен кошул: {code} https://my-molodaya-mama.ru/ref/{code}",
       "referral_stats": "Статистика",
       "referral_bonus": "жетон табылды",
       "invite_reminder_title": "Досторду чакырыңыз",
@@ -1133,8 +1133,8 @@
       "invite_banner_text": "Досуңду чакыр — 50 жетон ал!",
       "invite_banner_button": "Чакыруу",
       "share_achievement": "Досторго айтыңыз!",
-      "share_achievement_message": "Мен HomeEase менен үнөмдөйм! https://homeease.app",
-      "share_achievement_prompt": "Сонун! HomeEase жөнүндө досторго айтыңыз",
+      "share_achievement_message": "Мен молодая мама менен үнөмдөйм! https://my-molodaya-mama.ru",
+      "share_achievement_prompt": "Сонун! молодая мама жөнүндө досторго айтыңыз",
       "demo_shopping_list": "+ Соода тизмеси (демо)"
     },
     "tabs": {
@@ -1234,7 +1234,7 @@
       "normal": "Режим кормления в норме"
     },
     "subscription": {
-      "title": "HomeEase Premium",
+      "title": "молодая мама",
       "plans": "Тарифтер жана жазылуу",
       "subtitle": "Бардык функцияларга толук жеткиликтүүлүк",
       "trial_banner": "{days} күн акысыз",

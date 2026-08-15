@@ -354,7 +354,7 @@ async def create_stripe_products_if_configured() -> list[str]:
 
     for cc, pricing in COUNTRY_PRICING.items():
 
-        product = stripe_mod.Product.create(name=f"HomeEase {cc}", metadata={"country": cc})
+        product = stripe_mod.Product.create(name=f"молодая мама {cc}", metadata={"country": cc})
 
         for plan in ("monthly", "yearly"):
 

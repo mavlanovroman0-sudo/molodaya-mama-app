@@ -15,18 +15,19 @@ import { images } from '../theme/assets';
 
 export type RoleId = 'housewife' | 'young_mom';
 
-const BTN_W = 180;
-const BTN_H = 75;
+const BTN_W = 220;
+const BTN_H = 84;
+const READABLE_FONT = Platform.OS === 'web' ? 'Arial, "Segoe UI", sans-serif' : undefined;
 
-function ensureCalligraphyFont() {
+function ensureReadableWebFont() {
   if (Platform.OS !== 'web' || typeof document === 'undefined') return;
-  if (document.getElementById('homeease-calligraphy')) return;
-  const link = document.createElement('link');
-  link.id = 'homeease-calligraphy';
-  link.rel = 'stylesheet';
-  link.href =
-    'https://fonts.googleapis.com/css2?family=Bad+Script&family=Marck+Script&display=swap';
-  document.head.appendChild(link);
+  document.documentElement.lang = 'ru';
+  if (document.getElementById('molodaya-mama-base-font')) return;
+  const style = document.createElement('style');
+  style.id = 'molodaya-mama-base-font';
+  style.textContent =
+    'html, body, #root { font-family: Arial, "Segoe UI", sans-serif !important; }';
+  document.head.appendChild(style);
 }
 
 interface RoleCardProps {
@@ -55,7 +56,7 @@ function RoleCard({ label, gradient, onPress, delay }: RoleCardProps) {
         accessibilityLabel={label}
       >
         <LinearGradient colors={gradient} style={styles.roleGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-          <Text style={styles.roleLabel} numberOfLines={1}>
+          <Text style={styles.roleLabel} numberOfLines={2}>
             {label}
           </Text>
         </LinearGradient>
@@ -82,7 +83,7 @@ export function RoleSelectScreen({
   const titleAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    ensureCalligraphyFont();
+    ensureReadableWebFont();
     Animated.timing(titleAnim, { toValue: 1, duration: 700, useNativeDriver: true }).start();
   }, [titleAnim]);
 
@@ -93,13 +94,13 @@ export function RoleSelectScreen({
         <Text style={styles.appTitle}>молодая мама</Text>
         <View style={styles.buttonsRow}>
           <RoleCard
-            label={t('roles.experienced_mom')}
+            label="Опытная мама"
             gradient={['#D4919A', '#C47A84']}
             onPress={() => onSelectRole('housewife')}
             delay={150}
           />
           <RoleCard
-            label={t('roles.young_mom')}
+            label="Молодая мама"
             gradient={['#7EB8DA', '#5FA3CC']}
             onPress={() => onSelectRole('young_mom')}
             delay={300}
@@ -123,7 +124,7 @@ export function RoleSelectScreen({
             accessibilityRole="button"
             accessibilityLabel={t('common.instruction')}
           >
-            <Text style={styles.instructionText}>{t('common.instruction')}</Text>
+            <Text style={styles.instructionText}>инструкция</Text>
           </Pressable>
         ) : null}
       </Animated.View>
@@ -137,7 +138,7 @@ export function RoleSelectScreen({
               accessibilityRole="link"
               accessibilityLabel={t('common.tariffs')}
             >
-              <Text style={styles.tariffsText}>{t('common.tariffs')}</Text>
+              <Text style={styles.tariffsText}>тарифы</Text>
             </Pressable>
           ) : null}
           {onOpenInvite ? (
@@ -163,14 +164,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   appTitle: {
-    fontFamily:
-      Platform.OS === 'web' ? '"Marck Script", "Bad Script", "Segoe Script", cursive' : undefined,
-    fontSize: 56,
-    fontWeight: '400',
-    fontStyle: Platform.OS === 'web' ? 'normal' : 'italic',
+    fontFamily: READABLE_FONT,
+    fontSize: 42,
+    fontWeight: '700',
     color: '#3D2C2E',
-    letterSpacing: 1,
-    lineHeight: 68,
+    letterSpacing: 0.3,
+    lineHeight: 50,
     textShadowColor: 'rgba(255,255,255,0.85)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
@@ -200,7 +199,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   roleLabel: {
-    fontSize: 20,
+    fontFamily: READABLE_FONT,
+    fontSize: 16,
     fontWeight: '700',
     color: '#FFFFFF',
     textAlign: 'center',
@@ -220,7 +220,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   exitLabel: {
-    fontSize: 20,
+    fontFamily: READABLE_FONT,
+    fontSize: 18,
     fontWeight: '700',
     color: '#FFFFFF',
   },
@@ -231,6 +232,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.75)',
   },
   inviteBtnText: {
+    fontFamily: READABLE_FONT,
     fontSize: 13,
     color: '#4A4A4A',
     fontWeight: '600',
@@ -247,6 +249,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   tariffsText: {
+    fontFamily: READABLE_FONT,
     fontSize: 13,
     color: '#4A4A4A',
     fontWeight: '600',
@@ -259,6 +262,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   instructionText: {
+    fontFamily: READABLE_FONT,
     fontSize: 20,
     color: '#3D2C2E',
     textDecorationLine: 'underline',

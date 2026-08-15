@@ -37,7 +37,7 @@ export async function scanBleDevices(): Promise<BleDevice[]> {
     }
   }
   // react-native-ble-manager: BleManager.scan([], 5, true)
-  return [{ mac: 'AA:BB:CC:DD:EE:FF', name: 'HomeEase Red Button', rssi: -48 }];
+  return [{ mac: 'AA:BB:CC:DD:EE:FF', name: 'Красная кнопка', rssi: -48 }];
 }
 
 export async function registerBleDevice(mac: string, token: string): Promise<void> {

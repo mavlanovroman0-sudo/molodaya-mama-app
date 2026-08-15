@@ -90,7 +90,12 @@ export function createStackHeaderOptions(
     headerStyle: { backgroundColor: navTheme.headerBg },
     headerShadowVisible: false,
     headerTintColor: navTheme.headerTint,
-    headerTitleStyle: { fontWeight: '600', fontSize: 17, color: navTheme.headerTint },
+    headerTitleStyle: {
+      fontFamily: 'Arial, "Segoe UI", sans-serif',
+      fontWeight: '600',
+      fontSize: 17,
+      color: navTheme.headerTint,
+    },
     title: getScreenTitle(routeName),
     headerLeft: showBack
       ? () => <BackButton navigation={navigation} />

@@ -80,7 +80,7 @@ export function HousewifeTabs() {
         name="Report"
         component={ReportScreen}
         options={{
-          tabBarLabel: t('tabs.report'),
+          tabBarLabel: 'Отчёт',
           tabBarIcon: tabIcon('bar-chart-outline', 'bar-chart'),
         }}
       />

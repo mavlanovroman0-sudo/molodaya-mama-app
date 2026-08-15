@@ -1,4 +1,4 @@
-/** Розовая тема навигации HomeEase */
+/** Розовая тема навигации */
 export const navTheme = {
   headerBg: '#FFB6C1',
   headerTint: '#FFFFFF',

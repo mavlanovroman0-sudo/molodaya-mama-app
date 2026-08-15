@@ -16,12 +16,14 @@ export const colors = {
 
 export const formStyles = StyleSheet.create({
   label: {
+    fontFamily: 'Arial, "Segoe UI", sans-serif',
     fontSize: 14,
     color: colors.textGray,
     marginBottom: 6,
     fontWeight: '500',
   },
   input: {
+    fontFamily: 'Arial, "Segoe UI", sans-serif',
     backgroundColor: colors.white,
     borderRadius: 12,
     paddingHorizontal: 16,
@@ -41,6 +43,7 @@ export const formStyles = StyleSheet.create({
     marginTop: 8,
   },
   primaryButtonText: {
+    fontFamily: 'Arial, "Segoe UI", sans-serif',
     color: colors.white,
     fontSize: 16,
     fontWeight: '600',
@@ -59,6 +62,7 @@ export const formStyles = StyleSheet.create({
     marginTop: 8,
   },
   secondaryButtonText: {
+    fontFamily: 'Arial, "Segoe UI", sans-serif',
     color: colors.primary,
     fontSize: 16,
     fontWeight: '600',
@@ -67,6 +71,7 @@ export const formStyles = StyleSheet.create({
 
 export const tabBarOptions = {
   tabBarLabelStyle: {
+    fontFamily: 'Arial, "Segoe UI", sans-serif',
     fontSize: 11,
     fontWeight: '600' as const,
     marginBottom: 2,

@@ -90,7 +90,7 @@ class TBankProvider:
         body: dict[str, Any] = {
             "Amount": amount,
             "OrderId": order_id,
-            "Description": f"HomeEase Premium ({plan})",
+            "Description": f"молодая мама ({plan})",
             "SuccessURL": settings.payment_success_url,
             "FailURL": settings.payment_cancel_url,
             "DATA": {

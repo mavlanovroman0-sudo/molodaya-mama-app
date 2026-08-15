@@ -94,7 +94,7 @@ async def request_nanny(
         db,
         body.to_user_id,
         title="Запрос няни",
-        body=body.message or "Новый запрос от мамы в HomeEase",
+        body=body.message or "Новый запрос от мамы в «молодая мама»",
         data={"type": "nanny_request"},
     )
     return {"id": str(req.id), "status": "sent"}

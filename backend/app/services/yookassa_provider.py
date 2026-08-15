@@ -92,7 +92,7 @@ class YooKassaProvider:
                     "amount": {"value": amount_value, "currency": currency},
                     "confirmation": {"type": "redirect", "return_url": return_url},
                     "capture": True,
-                    "description": f"HomeEase Premium ({plan}, {country_code})",
+                    "description": f"молодая мама ({plan}, {country_code})",
                     "metadata": {
                         "user_id": str(user_id),
                         "plan": plan,

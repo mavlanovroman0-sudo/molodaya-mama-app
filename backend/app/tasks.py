@@ -37,7 +37,7 @@ async def send_invite_reminder() -> dict:
             ok = await send_expo_push(
                 db,
                 user.id,
-                title="HomeEase",
+                title="молодая мама",
                 body="Пригласите друзей и получите бонусы!",
                 data={"type": "invite_reminder"},
             )

@@ -55,7 +55,7 @@ export function usePushNotifications() {
     const sub = Notifications.addNotificationReceivedListener((notification) => {
       const data = notification.request.content.data as { alarmId?: string } | undefined;
       if (data?.alarmId) return;
-      const title = notification.request.content.title || 'HomeEase';
+      const title = notification.request.content.title || 'молодая мама';
       const body = notification.request.content.body || '';
       Alert.alert(title, body);
     });

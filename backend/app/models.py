@@ -54,6 +54,22 @@ class DeviceProtocol(str, enum.Enum):
     homekit = "homekit"
 
 
+def _pg_enum(enum_cls: type[enum.Enum], name: str) -> Enum:
+    """Имя типа как в schema.sql, значения — как в PostgreSQL ENUM."""
+    return Enum(
+        enum_cls,
+        name=name,
+        native_enum=True,
+        values_callable=lambda members: [item.value for item in members],
+    )
+
+
+USER_ROLE_ENUM = _pg_enum(UserRole, "user_role")
+APP_LANGUAGE_ENUM = _pg_enum(AppLanguage, "app_language")
+STORE_TYPE_ENUM = _pg_enum(StoreType, "store_type")
+DEVICE_PROTOCOL_ENUM = _pg_enum(DeviceProtocol, "device_protocol")
+
+
 class User(Base):
     __tablename__ = "users"
 
@@ -62,8 +78,8 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(String(255))
     display_name: Mapped[str | None] = mapped_column(String(100))
     phone: Mapped[str | None] = mapped_column(String(20))
-    active_role: Mapped[UserRole] = mapped_column(Enum(UserRole), default=UserRole.housewife)
-    language: Mapped[AppLanguage] = mapped_column(Enum(AppLanguage), default=AppLanguage.ru)
+    active_role: Mapped[UserRole] = mapped_column(USER_ROLE_ENUM, default=UserRole.housewife)
+    language: Mapped[AppLanguage] = mapped_column(APP_LANGUAGE_ENUM, default=AppLanguage.ru)
     auto_detect_language: Mapped[bool] = mapped_column(Boolean, default=True)
     latitude: Mapped[float | None] = mapped_column()
     longitude: Mapped[float | None] = mapped_column()
@@ -129,7 +145,7 @@ class RoleProfile(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
-    role: Mapped[UserRole] = mapped_column(Enum(UserRole))
+    role: Mapped[UserRole] = mapped_column(USER_ROLE_ENUM)
     settings: Mapped[dict] = mapped_column(JSONB, insert_default=dict)
     dashboard_layout: Mapped[list] = mapped_column(JSONB, insert_default=list)
 
@@ -141,7 +157,7 @@ class Store(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(String(200))
-    store_type: Mapped[StoreType] = mapped_column(Enum(StoreType))
+    store_type: Mapped[StoreType] = mapped_column(STORE_TYPE_ENUM)
     address: Mapped[str | None] = mapped_column(Text)
     latitude: Mapped[float | None] = mapped_column()
     longitude: Mapped[float | None] = mapped_column()
@@ -175,7 +191,7 @@ class SmartDevice(Base):
     name: Mapped[str] = mapped_column(String(100))
     room: Mapped[str | None] = mapped_column(String(50))
     device_type: Mapped[str | None] = mapped_column(String(50))
-    protocol: Mapped[DeviceProtocol] = mapped_column(Enum(DeviceProtocol))
+    protocol: Mapped[DeviceProtocol] = mapped_column(DEVICE_PROTOCOL_ENUM)
     external_id: Mapped[str | None] = mapped_column(String(255))
     provider_config: Mapped[dict] = mapped_column(JSONB, insert_default=dict)
     is_online: Mapped[bool] = mapped_column(Boolean, default=False)

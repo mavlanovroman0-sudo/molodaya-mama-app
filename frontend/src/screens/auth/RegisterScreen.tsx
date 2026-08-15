@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Pressable,
   StyleSheet,
   Text,
@@ -10,7 +9,7 @@ import {
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthBackground } from '../../components/AuthBackground';
-import { api } from '../../services/api';
+import { useAuth } from '../../hooks/useAuth';
 import { useTranslation } from '../../hooks/useTranslation';
 import { colors, formStyles } from '../../theme/formStyles';
 import type { AuthStackParamList } from '../../navigation/types';
@@ -19,32 +18,28 @@ type Props = NativeStackScreenProps<AuthStackParamList, 'Register'>;
 
 export function RegisterScreen({ navigation }: Props) {
   const { t } = useTranslation();
+  const { register } = useAuth();
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleRegister = async () => {
+    setError('');
     if (!name.trim() || !email.trim() || !password) {
-      Alert.alert(t('auth.fill_all_fields'));
+      setError(t('auth.fill_all_fields'));
       return;
     }
     if (password.length < 8) {
-      Alert.alert(t('auth.registration_failed'), t('auth.password_min_length'));
+      setError(t('auth.password_min_length'));
       return;
     }
     try {
       setSubmitting(true);
-      await api.post('/api/v1/auth/register', {
-        email: email.trim(),
-        password,
-        display_name: name.trim(),
-      });
-      Alert.alert(t('auth.registration_ok'), '', [
-        { text: 'OK', onPress: () => navigation.navigate('Login') },
-      ]);
+      await register(email.trim(), password, name.trim());
     } catch (e) {
-      Alert.alert(t('auth.registration_failed'), e instanceof Error ? e.message : '');
+      setError(e instanceof Error ? e.message : t('auth.registration_failed'));
     } finally {
       setSubmitting(false);
     }
@@ -88,6 +83,8 @@ export function RegisterScreen({ navigation }: Props) {
             placeholder={t('auth.password')}
             placeholderTextColor={colors.textMuted}
           />
+
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
           <Pressable
             style={[formStyles.primaryButton, submitting && formStyles.primaryButtonDisabled]}
@@ -157,6 +154,12 @@ const styles = StyleSheet.create({
   input: {
     ...formStyles.input,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  },
+  errorText: {
+    color: '#C44',
+    fontSize: 14,
+    marginBottom: 12,
+    textAlign: 'center',
   },
   linkWrap: {
     marginTop: 24,

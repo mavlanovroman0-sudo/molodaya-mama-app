@@ -19,7 +19,7 @@ async def detect_by_ip(ip: str | None) -> dict:
             data = resp.json()
             if data.get("status") == "success":
                 return data
-        except httpx.HTTPError:
+        except Exception:
             pass
     return {"countryCode": "RU", "city": None, "lat": None, "lon": None}
 
@@ -46,7 +46,7 @@ async def reverse_geocode(latitude: float, longitude: float) -> dict:
                 "microdistrict": addr.get("neighbourhood") or addr.get("quarter"),
                 "country_code": addr.get("country_code", "ru").upper(),
             }
-        except httpx.HTTPError:
+        except Exception:
             return {}
 
 

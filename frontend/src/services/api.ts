@@ -1,6 +1,8 @@
 import { useAppStore } from '../store/appStore';
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://127.0.0.1:8001';
+const API_URL =
+  process.env.EXPO_PUBLIC_API_URL ||
+  (typeof window !== 'undefined' ? window.location.origin : 'http://127.0.0.1:8001');
 
 const PUBLIC_API_PREFIXES = ['/api/v1/auth', '/api/v1/geo', '/api/v1/config', '/api/v1/webhook'];
 

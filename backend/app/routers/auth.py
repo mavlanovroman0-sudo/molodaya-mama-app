@@ -5,7 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
-from app.models import RoleProfile, User, UserRole
+from app.models import AppLanguage, RoleProfile, User, UserRole
 from app.schemas import (
     GeoDetectResponse,
     TokenResponse,
@@ -38,10 +38,22 @@ async def register(
     if existing.scalar_one_or_none():
         raise HTTPException(status_code=400, detail="Email already registered")
 
-    geo: GeoDetectResponse = await detect_location(
-        ip=_client_ip(request),
-        accept_language=request.headers.get("accept-language"),
-    )
+    geo: GeoDetectResponse
+    try:
+        geo = await detect_location(
+            ip=_client_ip(request),
+            accept_language=request.headers.get("accept-language"),
+        )
+    except Exception:
+        geo = GeoDetectResponse(
+            language=AppLanguage.ru,
+            country_code="RU",
+            city=None,
+            district=None,
+            microdistrict=None,
+            latitude=None,
+            longitude=None,
+        )
 
     user = User(
         email=body.email,

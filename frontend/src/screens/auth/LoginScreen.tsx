@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Pressable,
   StyleSheet,
   Text,
@@ -22,16 +21,18 @@ export function LoginScreen({ navigation }: Props) {
   const { login, loading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = async () => {
+    setError('');
     if (!email.trim() || !password) {
-      Alert.alert(t('auth.fill_all_fields'));
+      setError(t('auth.fill_all_fields'));
       return;
     }
     try {
       await login(email.trim(), password);
     } catch (e) {
-      Alert.alert(t('auth.login_failed'), e instanceof Error ? e.message : '');
+      setError(e instanceof Error ? e.message : t('auth.login_failed'));
     }
   };
 
@@ -63,6 +64,8 @@ export function LoginScreen({ navigation }: Props) {
             placeholder={t('auth.password')}
             placeholderTextColor={colors.textMuted}
           />
+
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
           <Pressable
             style={[formStyles.primaryButton, loading && formStyles.primaryButtonDisabled]}
@@ -130,6 +133,12 @@ const styles = StyleSheet.create({
   input: {
     ...formStyles.input,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  },
+  errorText: {
+    color: '#C44',
+    fontSize: 14,
+    marginBottom: 12,
+    textAlign: 'center',
   },
   linkWrap: {
     marginTop: 16,

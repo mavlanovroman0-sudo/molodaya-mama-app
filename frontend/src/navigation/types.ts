@@ -15,6 +15,7 @@ export type MainStackParamList = {
   MomApp: undefined;
   FeaturesDashboard: undefined;
   Invite: undefined;
+  Instruction: undefined;
 };
 
 export type HousewifeTabParamList = {

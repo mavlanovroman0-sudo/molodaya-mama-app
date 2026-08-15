@@ -67,10 +67,16 @@ function RoleCard({ label, gradient, onPress, delay }: RoleCardProps) {
 interface RoleSelectScreenProps {
   onSelectRole: (role: RoleId) => void;
   onOpenInvite?: () => void;
+  onOpenInstruction?: () => void;
   onExit?: () => void;
 }
 
-export function RoleSelectScreen({ onSelectRole, onOpenInvite, onExit }: RoleSelectScreenProps) {
+export function RoleSelectScreen({
+  onSelectRole,
+  onOpenInvite,
+  onOpenInstruction,
+  onExit,
+}: RoleSelectScreenProps) {
   const titleAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -108,6 +114,16 @@ export function RoleSelectScreen({ onSelectRole, onOpenInvite, onExit }: RoleSel
             </Pressable>
           ) : null}
         </View>
+        {onOpenInstruction ? (
+          <Pressable
+            onPress={onOpenInstruction}
+            style={styles.instructionBtn}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.instruction')}
+          >
+            <Text style={styles.instructionText}>{t('common.instruction')}</Text>
+          </Pressable>
+        ) : null}
       </Animated.View>
 
       {onOpenInvite ? (
@@ -205,5 +221,16 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#4A4A4A',
     fontWeight: '600',
+  },
+  instructionBtn: {
+    marginTop: 18,
+    paddingVertical: 8,
+    paddingRight: 12,
+    alignSelf: 'flex-start',
+  },
+  instructionText: {
+    fontSize: 10,
+    color: '#3D2C2E',
+    textDecorationLine: 'underline',
   },
 });

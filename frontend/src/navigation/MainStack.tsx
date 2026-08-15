@@ -10,6 +10,8 @@ import { DashboardScreen } from '../screens/DashboardScreen';
 
 import { InviteScreen } from '../screens/InviteScreen';
 
+import { InstructionScreen } from '../screens/InstructionScreen';
+
 import { InviteBanner } from '../components/InviteBanner';
 
 import { useRemoteConfig } from '../hooks/useRemoteConfig';
@@ -213,6 +215,8 @@ function RoleSelectRoute({
 
         onOpenInvite={() => navigation.navigate('Invite')}
 
+        onOpenInstruction={() => navigation.navigate('Instruction')}
+
         onExit={handleExit}
 
       />
@@ -280,6 +284,8 @@ export function MainStackNavigator() {
       </Stack.Screen>
 
       <Stack.Screen name="Invite" component={InviteScreen} />
+
+      <Stack.Screen name="Instruction" component={InstructionScreen} />
 
     </Stack.Navigator>
 

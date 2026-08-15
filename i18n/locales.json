@@ -78,7 +78,8 @@
       "back": "Назад",
       "exit": "Выход",
       "instruction": "инструкция",
-      "instruction_title": "Инструкция"
+      "instruction_title": "Инструкция",
+      "tariffs": "тарифы"
     },
     "legal": {
       "privacy_title": "Политика конфиденциальности",

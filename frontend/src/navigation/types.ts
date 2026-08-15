@@ -16,6 +16,9 @@ export type MainStackParamList = {
   FeaturesDashboard: undefined;
   Invite: undefined;
   Instruction: undefined;
+  Subscription: undefined;
+  PrivacyPolicy: undefined;
+  Terms: undefined;
 };
 
 export type HousewifeTabParamList = {

@@ -12,6 +12,12 @@ import { InviteScreen } from '../screens/InviteScreen';
 
 import { InstructionScreen } from '../screens/InstructionScreen';
 
+import { SubscriptionScreen } from '../screens/SubscriptionScreen';
+
+import { PrivacyPolicyScreen } from '../screens/PrivacyPolicyScreen';
+
+import { TermsScreen } from '../screens/TermsScreen';
+
 import { InviteBanner } from '../components/InviteBanner';
 
 import { useRemoteConfig } from '../hooks/useRemoteConfig';
@@ -217,6 +223,8 @@ function RoleSelectRoute({
 
         onOpenInstruction={() => navigation.navigate('Instruction')}
 
+        onOpenTariffs={() => navigation.navigate('Subscription')}
+
         onExit={handleExit}
 
       />
@@ -286,6 +294,12 @@ export function MainStackNavigator() {
       <Stack.Screen name="Invite" component={InviteScreen} />
 
       <Stack.Screen name="Instruction" component={InstructionScreen} />
+
+      <Stack.Screen name="Subscription" component={SubscriptionScreen} />
+
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
+
+      <Stack.Screen name="Terms" component={TermsScreen} />
 
     </Stack.Navigator>
 

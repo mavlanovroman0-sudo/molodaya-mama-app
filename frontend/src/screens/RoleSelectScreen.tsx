@@ -68,6 +68,7 @@ interface RoleSelectScreenProps {
   onSelectRole: (role: RoleId) => void;
   onOpenInvite?: () => void;
   onOpenInstruction?: () => void;
+  onOpenTariffs?: () => void;
   onExit?: () => void;
 }
 
@@ -75,6 +76,7 @@ export function RoleSelectScreen({
   onSelectRole,
   onOpenInvite,
   onOpenInstruction,
+  onOpenTariffs,
   onExit,
 }: RoleSelectScreenProps) {
   const titleAnim = useRef(new Animated.Value(0)).current;
@@ -126,10 +128,24 @@ export function RoleSelectScreen({
         ) : null}
       </Animated.View>
 
-      {onOpenInvite ? (
-        <Pressable style={styles.inviteBtn} onPress={onOpenInvite}>
-          <Text style={styles.inviteBtnText}>{t('invite.invite_friends')}</Text>
-        </Pressable>
+      {onOpenInvite || onOpenTariffs ? (
+        <View style={styles.topRight}>
+          {onOpenTariffs ? (
+            <Pressable
+              onPress={onOpenTariffs}
+              style={styles.tariffsBtn}
+              accessibilityRole="link"
+              accessibilityLabel={t('common.tariffs')}
+            >
+              <Text style={styles.tariffsText}>{t('common.tariffs')}</Text>
+            </Pressable>
+          ) : null}
+          {onOpenInvite ? (
+            <Pressable style={styles.inviteBtn} onPress={onOpenInvite}>
+              <Text style={styles.inviteBtnText}>{t('invite.invite_friends')}</Text>
+            </Pressable>
+          ) : null}
+        </View>
       ) : null}
     </ImageBackground>
   );
@@ -209,9 +225,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   inviteBtn: {
-    position: 'absolute',
-    right: 20,
-    top: 48,
     paddingVertical: 10,
     paddingHorizontal: 14,
     borderRadius: 10,
@@ -222,6 +235,23 @@ const styles = StyleSheet.create({
     color: '#4A4A4A',
     fontWeight: '600',
   },
+  topRight: {
+    position: 'absolute',
+    right: 20,
+    top: 48,
+    alignItems: 'flex-end',
+  },
+  tariffsBtn: {
+    paddingVertical: 6,
+    paddingHorizontal: 4,
+    marginBottom: 8,
+  },
+  tariffsText: {
+    fontSize: 13,
+    color: '#4A4A4A',
+    fontWeight: '600',
+    textDecorationLine: 'underline',
+  },
   instructionBtn: {
     marginTop: 18,
     paddingVertical: 8,
@@ -229,7 +259,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   instructionText: {
-    fontSize: 10,
+    fontSize: 20,
     color: '#3D2C2E',
     textDecorationLine: 'underline',
   },

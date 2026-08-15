@@ -1,7 +1,7 @@
 {
   "ru": {
     "app": {
-      "title": "HomeEase",
+      "title": "молодая мама",
       "subtitle": "Выберите свой профиль",
       "select_role_title": "Выберите свой профиль"
     },
@@ -26,9 +26,9 @@
     },
     "roles": {
       "housewife": "Домохозяйка",
-      "experienced_mom": "Опытная мама",
+      "experienced_mom": "Опытная",
       "housewife_desc": "Управление домом, бюджет, закупки, бартер",
-      "young_mom": "Молодая мама",
+      "young_mom": "Молодая",
       "young_mom_desc": "Трекер малыша, сон, кормление, помощь"
     },
     "dashboard": {
@@ -219,7 +219,7 @@
   },
   "kk": {
     "app": {
-      "title": "HomeEase",
+      "title": "молодая мама",
       "subtitle": "Профиліңізді таңдаңыз",
       "select_role_title": "Профиліңізді таңдаңыз"
     },
@@ -427,7 +427,7 @@
   },
   "uz": {
     "app": {
-      "title": "HomeEase",
+      "title": "молодая мама",
       "subtitle": "Profilingizni tanlang",
       "select_role_title": "Profilingizni tanlang"
     },
@@ -635,7 +635,7 @@
   },
   "tg": {
     "app": {
-      "title": "HomeEase",
+      "title": "молодая мама",
       "subtitle": "Профили худро интихоб кунед",
       "select_role_title": "Профили худро интихоб кунед"
     },
@@ -843,7 +843,7 @@
   },
   "ka": {
     "app": {
-      "title": "HomeEase",
+      "title": "молодая мама",
       "subtitle": "აირჩიეთ თქვენი პროფილი",
       "select_role_title": "აირჩიეთ თქვენი პროფილი"
     },
@@ -1051,7 +1051,7 @@
   },
   "ky": {
     "app": {
-      "title": "HomeEase",
+      "title": "молодая мама",
       "subtitle": "Профилиңизди тандаңыз",
       "select_role_title": "Профилиңизди тандаңыз"
     },

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import {
   Animated,
   ImageBackground,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -14,8 +15,19 @@ import { images } from '../theme/assets';
 
 export type RoleId = 'housewife' | 'young_mom';
 
-const BTN_W = 120;
-const BTN_H = 50;
+const BTN_W = 180;
+const BTN_H = 75;
+
+function ensureCalligraphyFont() {
+  if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+  if (document.getElementById('homeease-calligraphy')) return;
+  const link = document.createElement('link');
+  link.id = 'homeease-calligraphy';
+  link.rel = 'stylesheet';
+  link.href =
+    'https://fonts.googleapis.com/css2?family=Bad+Script&family=Marck+Script&display=swap';
+  document.head.appendChild(link);
+}
 
 interface RoleCardProps {
   label: string;
@@ -62,45 +74,41 @@ export function RoleSelectScreen({ onSelectRole, onOpenInvite, onExit }: RoleSel
   const titleAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    ensureCalligraphyFont();
     Animated.timing(titleAnim, { toValue: 1, duration: 700, useNativeDriver: true }).start();
   }, [titleAnim]);
-
-  const experiencedMomLabel = `👩‍🍳 ${t('roles.experienced_mom')}`;
-  const momLabel = `👶 ${t('roles.young_mom')}`;
 
   return (
     <ImageBackground source={images.authBg} style={styles.screen} resizeMode="cover">
       <View style={styles.overlay} />
       <Animated.View style={[styles.header, { opacity: titleAnim }]}>
-        <Text style={styles.appTitle}>{t('app.title')}</Text>
-        <Text style={styles.subtitle}>{t('app.subtitle')}</Text>
+        <Text style={styles.appTitle}>молодая мама</Text>
+        <View style={styles.buttonsRow}>
+          <RoleCard
+            label={t('roles.experienced_mom')}
+            gradient={['#D4919A', '#C47A84']}
+            onPress={() => onSelectRole('housewife')}
+            delay={150}
+          />
+          <RoleCard
+            label={t('roles.young_mom')}
+            gradient={['#7EB8DA', '#5FA3CC']}
+            onPress={() => onSelectRole('young_mom')}
+            delay={300}
+          />
+          {onExit ? (
+            <Pressable
+              style={styles.exitBtn}
+              onPress={onExit}
+              accessibilityRole="button"
+              accessibilityLabel={t('common.exit')}
+            >
+              <Ionicons name="log-out-outline" size={22} color="#FFFFFF" />
+              <Text style={styles.exitLabel}>{t('common.exit')}</Text>
+            </Pressable>
+          ) : null}
+        </View>
       </Animated.View>
-
-      <View style={styles.bottomBar}>
-        <RoleCard
-          label={experiencedMomLabel}
-          gradient={['#D4919A', '#C47A84']}
-          onPress={() => onSelectRole('housewife')}
-          delay={150}
-        />
-        <RoleCard
-          label={momLabel}
-          gradient={['#7EB8DA', '#5FA3CC']}
-          onPress={() => onSelectRole('young_mom')}
-          delay={300}
-        />
-        {onExit ? (
-          <Pressable
-            style={styles.exitBtn}
-            onPress={onExit}
-            accessibilityRole="button"
-            accessibilityLabel={t('common.exit')}
-          >
-            <Ionicons name="log-out-outline" size={18} color="#FFFFFF" style={styles.exitIcon} />
-            <Text style={styles.exitLabel}>{t('common.exit')}</Text>
-          </Pressable>
-        ) : null}
-      </View>
 
       {onOpenInvite ? (
         <Pressable style={styles.inviteBtn} onPress={onOpenInvite}>
@@ -118,36 +126,33 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.25)',
   },
   header: {
-    paddingTop: 56,
+    paddingTop: 48,
     paddingHorizontal: 24,
     alignItems: 'flex-start',
   },
   appTitle: {
-    fontSize: 32,
-    fontWeight: '700',
+    fontFamily:
+      Platform.OS === 'web' ? '"Marck Script", "Bad Script", "Segoe Script", cursive' : undefined,
+    fontSize: 56,
+    fontWeight: '400',
+    fontStyle: Platform.OS === 'web' ? 'normal' : 'italic',
     color: '#3D2C2E',
-    letterSpacing: -0.5,
-    textShadowColor: 'rgba(255,255,255,0.8)',
+    letterSpacing: 1,
+    lineHeight: 68,
+    textShadowColor: 'rgba(255,255,255,0.85)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
   },
-  subtitle: {
-    fontSize: 16,
-    color: '#4A4A4A',
-    marginTop: 8,
-    lineHeight: 22,
-  },
-  bottomBar: {
-    position: 'absolute',
-    left: 20,
-    bottom: 20,
+  buttonsRow: {
     flexDirection: 'row',
-    gap: 10,
+    flexWrap: 'wrap',
+    gap: 14,
+    marginTop: 28,
   },
   roleBtn: {
     width: BTN_W,
     height: BTN_H,
-    borderRadius: 12,
+    borderRadius: 14,
     overflow: 'hidden',
     elevation: 4,
     shadowColor: '#000',
@@ -160,10 +165,10 @@ const styles = StyleSheet.create({
     height: BTN_H,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
   },
   roleLabel: {
-    fontSize: 13,
+    fontSize: 20,
     fontWeight: '700',
     color: '#FFFFFF',
     textAlign: 'center',
@@ -174,19 +179,16 @@ const styles = StyleSheet.create({
   exitBtn: {
     width: BTN_W,
     height: BTN_H,
-    borderRadius: 12,
+    borderRadius: 14,
     backgroundColor: 'rgba(136, 136, 136, 0.75)',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4,
-    paddingHorizontal: 6,
-  },
-  exitIcon: {
-    marginRight: 2,
+    gap: 8,
+    paddingHorizontal: 8,
   },
   exitLabel: {
-    fontSize: 13,
+    fontSize: 20,
     fontWeight: '700',
     color: '#FFFFFF',
   },

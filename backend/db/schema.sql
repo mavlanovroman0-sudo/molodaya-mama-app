@@ -1,5 +1,5 @@
-# HomeEase 2.0 — PostgreSQL Schema
-# Схема БД: единый аккаунт, две роли, общие и ролевые данные
+-- HomeEase 2.0 — PostgreSQL Schema
+-- Схема БД: единый аккаунт, две роли, общие и ролевые данные
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 

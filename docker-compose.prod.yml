@@ -87,6 +87,22 @@ services:
         limits:
           memory: 1G
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        EXPO_PUBLIC_API_URL: https://my-molodaya-mama.ru
+    image: homeease-frontend:prod
+    container_name: homeease-prod-frontend
+    restart: unless-stopped
+    networks:
+      - frontend_edge
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
   nginx:
     image: nginx:1.27-alpine
     container_name: homeease-prod-nginx
@@ -100,6 +116,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+      frontend:
+        condition: service_started
     networks:
       - frontend_edge
     deploy:

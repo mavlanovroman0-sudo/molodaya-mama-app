@@ -98,6 +98,14 @@ export function LoginScreen({ navigation }: Props) {
         >
           <Text style={styles.link}>{t('auth.no_account')}</Text>
         </Pressable>
+        <Pressable
+          onPress={() => navigation.navigate('Language')}
+          style={styles.linkWrap}
+          accessibilityRole="button"
+          accessibilityLabel={t('common.change_language')}
+        >
+          <Text style={styles.link}>{t('common.change_language')}</Text>
+        </Pressable>
         </View>
       </View>
     </AuthBackground>

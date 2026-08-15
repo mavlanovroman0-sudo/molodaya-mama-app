@@ -56,6 +56,13 @@ export function ProfileScreen({ navigation }: Props) {
         >
           <Text style={formStyles.secondaryButtonText}>{t('common.switch_role')}</Text>
         </Pressable>
+        <Pressable
+          style={[formStyles.secondaryButton, styles.gap]}
+          onPress={() => navigation.navigate('Language')}
+          accessibilityLabel={t('common.change_language')}
+        >
+          <Text style={formStyles.secondaryButtonText}>{t('common.change_language')}</Text>
+        </Pressable>
       </View>
       <Pressable style={styles.link} onPress={() => navigation.navigate('PrivacyPolicy')}>
         <Text style={styles.linkText}>{t('legal.privacy_title')}</Text>

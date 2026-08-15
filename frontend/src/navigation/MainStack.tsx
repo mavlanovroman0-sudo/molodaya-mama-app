@@ -17,6 +17,7 @@ import { SubscriptionScreen } from '../screens/SubscriptionScreen';
 import { PrivacyPolicyScreen } from '../screens/PrivacyPolicyScreen';
 
 import { TermsScreen } from '../screens/TermsScreen';
+import { LanguageScreen } from '../screens/LanguageScreen';
 
 import { InviteBanner } from '../components/InviteBanner';
 
@@ -224,7 +225,7 @@ function RoleSelectRoute({
         onOpenInstruction={() => navigation.navigate('Instruction')}
 
         onOpenTariffs={() => navigation.navigate('Subscription')}
-
+        onOpenLanguage={() => navigation.navigate('Language')}
         onExit={handleExit}
 
       />
@@ -300,6 +301,7 @@ export function MainStackNavigator() {
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
 
       <Stack.Screen name="Terms" component={TermsScreen} />
+      <Stack.Screen name="Language" component={LanguageScreen} />
 
     </Stack.Navigator>
 

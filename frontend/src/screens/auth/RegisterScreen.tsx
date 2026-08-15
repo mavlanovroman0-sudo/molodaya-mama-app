@@ -101,6 +101,15 @@ export function RegisterScreen({ navigation }: Props) {
           </Pressable>
 
           <Pressable
+            onPress={() => navigation.navigate('Language')}
+            style={styles.linkWrap}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.change_language')}
+          >
+            <Text style={styles.link}>{t('common.change_language')}</Text>
+          </Pressable>
+
+          <Pressable
             onPress={() => navigation.navigate('Login')}
             style={styles.linkWrap}
             accessibilityRole="button"

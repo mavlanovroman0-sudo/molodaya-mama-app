@@ -14,6 +14,7 @@ import { SubscriptionScreen } from '../screens/SubscriptionScreen';
 import { InviteScreen } from '../screens/InviteScreen';
 import { PrivacyPolicyScreen } from '../screens/PrivacyPolicyScreen';
 import { TermsScreen } from '../screens/TermsScreen';
+import { LanguageScreen } from '../screens/LanguageScreen';
 import { createStackHeaderOptions } from './headerOptions';
 import { createTabNavigatorScreenOptions, tabIcon } from './tabScreenOptions';
 import type { MomTabParamList, ProfileStackParamList } from './types';
@@ -33,6 +34,7 @@ function ProfileStackNavigator() {
       <ProfileStack.Screen name="Subscription" component={SubscriptionScreen} />
       <ProfileStack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
       <ProfileStack.Screen name="Terms" component={TermsScreen} />
+      <ProfileStack.Screen name="Language" component={LanguageScreen} />
     </ProfileStack.Navigator>
   );
 }

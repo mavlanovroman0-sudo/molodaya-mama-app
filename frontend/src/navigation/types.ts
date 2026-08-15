@@ -7,6 +7,7 @@ export type AuthStackParamList = {
   Register: undefined;
   PrivacyPolicy: undefined;
   Terms: undefined;
+  Language: undefined;
 };
 
 export type MainStackParamList = {
@@ -19,6 +20,7 @@ export type MainStackParamList = {
   Subscription: undefined;
   PrivacyPolicy: undefined;
   Terms: undefined;
+  Language: undefined;
 };
 
 export type HousewifeTabParamList = {
@@ -48,4 +50,5 @@ export type ProfileStackParamList = {
   PrivacyPolicy: undefined;
   Terms: undefined;
   RoleSelect: undefined;
+  Language: undefined;
 };

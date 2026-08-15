@@ -79,7 +79,8 @@
       "exit": "Выход",
       "instruction": "инструкция",
       "instruction_title": "Инструкция",
-      "tariffs": "тарифы"
+      "tariffs": "тарифы",
+      "change_language": "Сменить язык"
     },
     "legal": {
       "privacy_title": "Политика конфиденциальности",
@@ -234,6 +235,14 @@
       "payment_cancelled": "Оплата отменена.",
       "polling_hint": "Ожидаем подтверждение оплаты...",
       "error": "Ошибка"
+    },
+    "languages": {
+      "ru": "Русский",
+      "kk": "Қазақша",
+      "uz": "Oʻzbekcha",
+      "tg": "Тоҷикӣ",
+      "ka": "ქართული",
+      "ky": "Кыргызча"
     }
   },
   "kk": {
@@ -276,7 +285,8 @@
     "common": {
       "switch_role": "Профильді ауыстыру",
       "settings": "Баптаулар",
-      "language": "Тіл"
+      "language": "Тіл",
+      "change_language": "Тілді ауыстыру"
     },
     "legal": {
       "privacy_title": "Құпиялылық саясаты",
@@ -442,6 +452,14 @@
       "payment_cancelled": "Төлем тоқтатылды.",
       "polling_hint": "Төлем расталуын күтеміз...",
       "error": "Қате"
+    },
+    "languages": {
+      "ru": "Русский",
+      "kk": "Қазақша",
+      "uz": "Oʻzbekcha",
+      "tg": "Тоҷикӣ",
+      "ka": "ქართული",
+      "ky": "Кыргызча"
     }
   },
   "uz": {
@@ -484,7 +502,8 @@
     "common": {
       "switch_role": "Profilni almashtirish",
       "settings": "Sozlamalar",
-      "language": "Til"
+      "language": "Til",
+      "change_language": "Tilni almashtirish"
     },
     "legal": {
       "privacy_title": "Maxfiylik siyosati",
@@ -650,6 +669,14 @@
       "payment_cancelled": "To'lov bekor qilindi.",
       "polling_hint": "To'lov tasdiqlanishi kutilmoqda...",
       "error": "Xato"
+    },
+    "languages": {
+      "ru": "Русский",
+      "kk": "Қазақша",
+      "uz": "Oʻzbekcha",
+      "tg": "Тоҷикӣ",
+      "ka": "ქართული",
+      "ky": "Кыргызча"
     }
   },
   "tg": {
@@ -692,7 +719,8 @@
     "common": {
       "switch_role": "Иваз кардани профил",
       "settings": "Танзимот",
-      "language": "Забон"
+      "language": "Забон",
+      "change_language": "Иваз кардани забон"
     },
     "legal": {
       "privacy_title": "Сиёсати махфият",
@@ -858,6 +886,14 @@
       "payment_cancelled": "Пардохт бекор шуд.",
       "polling_hint": "Тасдиқи пардохт интизор мешавем...",
       "error": "Хато"
+    },
+    "languages": {
+      "ru": "Русский",
+      "kk": "Қазақша",
+      "uz": "Oʻzbekcha",
+      "tg": "Тоҷикӣ",
+      "ka": "ქართული",
+      "ky": "Кыргызча"
     }
   },
   "ka": {
@@ -900,7 +936,8 @@
     "common": {
       "switch_role": "პროფილის შეცვლა",
       "settings": "პარამეტრები",
-      "language": "ენა"
+      "language": "ენა",
+      "change_language": "ენის შეცვლა"
     },
     "legal": {
       "privacy_title": "კონფიდენციალურობის პოლიტიკა",
@@ -1066,6 +1103,14 @@
       "payment_cancelled": "გადახდა გაუქმდა.",
       "polling_hint": "ველოდებით გადახდის დადასტურებას...",
       "error": "შეცდომა"
+    },
+    "languages": {
+      "ru": "Русский",
+      "kk": "Қазақша",
+      "uz": "Oʻzbekcha",
+      "tg": "Тоҷикӣ",
+      "ka": "ქართული",
+      "ky": "Кыргызча"
     }
   },
   "ky": {
@@ -1108,7 +1153,8 @@
     "common": {
       "switch_role": "Профилди алмаштыруу",
       "settings": "Жөндөөлөр",
-      "language": "Тил"
+      "language": "Тил",
+      "change_language": "Тилди алмаштыруу"
     },
     "legal": {
       "privacy_title": "Купуялык саясаты",
@@ -1274,6 +1320,14 @@
       "payment_cancelled": "Төлөм токтотулду.",
       "polling_hint": "Төлөмдүн ырастоосун күтөбүз...",
       "error": "Ката"
+    },
+    "languages": {
+      "ru": "Русский",
+      "kk": "Қазақша",
+      "uz": "Oʻzbekcha",
+      "tg": "Тоҷикӣ",
+      "ka": "ქართული",
+      "ky": "Кыргызча"
     }
   }
 }

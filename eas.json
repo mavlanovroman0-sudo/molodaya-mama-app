@@ -17,6 +17,12 @@
         "buildType": "apk"
       }
     },
+    "getapps": {
+      "distribution": "store",
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "production": {
       "android": {
         "buildType": "app-bundle"

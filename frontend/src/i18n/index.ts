@@ -19,6 +19,30 @@ type LocaleData = Record<string, unknown>;
 
 let currentLang: AppLanguage = 'ru';
 let autoDetect = true;
+const languageListeners = new Set<() => void>();
+
+export const LANGUAGE_OPTIONS: { id: AppLanguage; nativeName: string }[] = [
+  { id: 'ru', nativeName: 'Русский' },
+  { id: 'kk', nativeName: 'Қазақша' },
+  { id: 'uz', nativeName: 'Oʻzbekcha' },
+  { id: 'tg', nativeName: 'Тоҷикӣ' },
+  { id: 'ka', nativeName: 'ქართული' },
+  { id: 'ky', nativeName: 'Кыргызча' },
+];
+
+function notifyLanguageListeners() {
+  languageListeners.forEach((fn) => fn());
+  if (Platform.OS === 'web' && typeof document !== 'undefined') {
+    document.documentElement.lang = currentLang;
+  }
+}
+
+export function subscribeLanguage(listener: () => void): () => void {
+  languageListeners.add(listener);
+  return () => {
+    languageListeners.delete(listener);
+  };
+}
 
 function getNested(obj: LocaleData, path: string): string {
   const keys = path.split('.');
@@ -52,6 +76,7 @@ export async function setLanguage(lang: AppLanguage, persist = true): Promise<vo
   if (persist) {
     await AsyncStorage.setItem(STORAGE_KEY, lang);
   }
+  notifyLanguageListeners();
 }
 
 export async function setAutoDetect(enabled: boolean): Promise<void> {
@@ -109,6 +134,7 @@ export async function detectAndApplyLanguage(): Promise<AppLanguage> {
       const data = await resp.json();
       currentLang = data.language as AppLanguage;
       await AsyncStorage.setItem(STORAGE_KEY, currentLang);
+      notifyLanguageListeners();
       return currentLang;
     }
   } catch {

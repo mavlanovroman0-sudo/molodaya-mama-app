@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { t } from '../i18n';
+import { useTranslation } from '../hooks/useTranslation';
 import { images } from '../theme/assets';
 
 export type RoleId = 'housewife' | 'young_mom';
@@ -21,7 +21,6 @@ const READABLE_FONT = Platform.OS === 'web' ? 'Arial, "Segoe UI", sans-serif' : 
 
 function ensureReadableWebFont() {
   if (Platform.OS !== 'web' || typeof document === 'undefined') return;
-  document.documentElement.lang = 'ru';
   if (document.getElementById('molodaya-mama-base-font')) return;
   const style = document.createElement('style');
   style.id = 'molodaya-mama-base-font';
@@ -70,6 +69,7 @@ interface RoleSelectScreenProps {
   onOpenInvite?: () => void;
   onOpenInstruction?: () => void;
   onOpenTariffs?: () => void;
+  onOpenLanguage?: () => void;
   onExit?: () => void;
 }
 
@@ -78,9 +78,11 @@ export function RoleSelectScreen({
   onOpenInvite,
   onOpenInstruction,
   onOpenTariffs,
+  onOpenLanguage,
   onExit,
 }: RoleSelectScreenProps) {
   const titleAnim = useRef(new Animated.Value(0)).current;
+  const { t } = useTranslation();
 
   useEffect(() => {
     ensureReadableWebFont();
@@ -94,13 +96,13 @@ export function RoleSelectScreen({
         <Text style={styles.appTitle}>молодая мама</Text>
         <View style={styles.buttonsRow}>
           <RoleCard
-            label="Опытная мама"
+            label={t('roles.experienced_mom')}
             gradient={['#D4919A', '#C47A84']}
             onPress={() => onSelectRole('housewife')}
             delay={150}
           />
           <RoleCard
-            label="Молодая мама"
+            label={t('roles.young_mom')}
             gradient={['#7EB8DA', '#5FA3CC']}
             onPress={() => onSelectRole('young_mom')}
             delay={300}
@@ -124,7 +126,17 @@ export function RoleSelectScreen({
             accessibilityRole="button"
             accessibilityLabel={t('common.instruction')}
           >
-            <Text style={styles.instructionText}>инструкция</Text>
+            <Text style={styles.instructionText}>{t('common.instruction')}</Text>
+          </Pressable>
+        ) : null}
+        {onOpenLanguage ? (
+          <Pressable
+            onPress={onOpenLanguage}
+            style={styles.instructionBtn}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.change_language')}
+          >
+            <Text style={styles.instructionText}>{t('common.change_language')}</Text>
           </Pressable>
         ) : null}
       </Animated.View>
@@ -138,7 +150,7 @@ export function RoleSelectScreen({
               accessibilityRole="link"
               accessibilityLabel={t('common.tariffs')}
             >
-              <Text style={styles.tariffsText}>тарифы</Text>
+              <Text style={styles.tariffsText}>{t('common.tariffs')}</Text>
             </Pressable>
           ) : null}
           {onOpenInvite ? (

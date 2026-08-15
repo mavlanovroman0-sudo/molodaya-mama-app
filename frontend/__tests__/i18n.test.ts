@@ -17,4 +17,8 @@ describe('i18n', () => {
     expect(t('app.title')).toBe('молодая мама');
     await setLanguage('ru', false);
   });
+
+  it('has change language label in Russian', () => {
+    expect(t('common.change_language', 'ru')).toBe('Сменить язык');
+  });
 });

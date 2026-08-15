@@ -1,16 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getCurrentLanguage, t as translate, type AppLanguage } from '../i18n';
+import {
+  getCurrentLanguage,
+  subscribeLanguage,
+  t as translate,
+  type AppLanguage,
+} from '../i18n';
 
 /** Хук-обёртка над i18n (аналог react-i18next useTranslation). */
 export function useTranslation() {
   const [lang, setLang] = useState<AppLanguage>(getCurrentLanguage());
 
   useEffect(() => {
-    const id = setInterval(() => {
-      const current = getCurrentLanguage();
-      setLang((prev) => (prev !== current ? current : prev));
-    }, 500);
-    return () => clearInterval(id);
+    return subscribeLanguage(() => {
+      setLang(getCurrentLanguage());
+    });
   }, []);
 
   const t = useCallback(

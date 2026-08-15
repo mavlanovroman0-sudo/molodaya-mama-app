@@ -1,0 +1,20 @@
+{
+  "store": "GetApps",
+  "developer_console": "https://dev.mi.com",
+  "publish": false,
+  "package_name": "com.homeease.app",
+  "app_name": "молодая мама",
+  "default_language": "ru",
+  "version_name": "2.0.0",
+  "privacy_url": "https://my-molodaya-mama.ru",
+  "website": "https://my-molodaya-mama.ru",
+  "brief": "Списки, дом и трекер малыша.",
+  "description": "Приложение «молодая мама» помогает вести дом и ухаживать за малышом. Опытная мама: списки покупок, бартер, учёт дел и умный дом. Молодая мама: кормление, сон, подгузники, будильники и чек-лист по возрасту. Оплата на сайте через ЮKassa, без автоматического продления.",
+  "keywords": "мама дом малыш списки будильник",
+  "category": "Lifestyle",
+  "suitable_type": 0,
+  "build_profile": "getapps",
+  "build_type": "apk",
+  "icon": "frontend/assets/icon.png",
+  "icon_size": "512x512 png"
+}

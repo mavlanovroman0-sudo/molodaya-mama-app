@@ -28,6 +28,7 @@ const SCREEN_TITLE_KEYS: Record<string, string> = {
   Terms: 'legal.terms_title',
   Paywall: 'subscription.title',
   Instruction: 'common.instruction_title',
+  Language: 'common.change_language',
 };
 
 export function getScreenTitle(routeName: string): string {

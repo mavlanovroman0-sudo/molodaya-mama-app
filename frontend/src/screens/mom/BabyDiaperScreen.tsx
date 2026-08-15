@@ -43,19 +43,28 @@ export function BabyDiaperScreen() {
 
   if (loading) {
     return (
-      <View style={styles.center}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{t('tabs.diapers')}</Text>
+        <BabyAlarmPanel kind="diaper" />
         <ActivityIndicator color="#7EB8DA" />
       </View>
     );
   }
 
   if (error && diapers.length === 0) {
-    return <ErrorState message={error} onRetry={reload} />;
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>{t('tabs.diapers')}</Text>
+        <BabyAlarmPanel kind="diaper" />
+        <ErrorState message={error} onRetry={reload} />
+      </View>
+    );
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('tabs.diapers')}</Text>
+      <BabyAlarmPanel kind="diaper" />
       <View style={styles.typeRow}>
         {(['wet', 'dirty', 'both'] as const).map((dt) => (
           <Pressable
@@ -72,7 +81,6 @@ export function BabyDiaperScreen() {
       <Pressable style={styles.bigBtn} onPress={addDiaper}>
         <Text style={styles.bigBtnText}>+ {t('screens.add_diaper')}</Text>
       </Pressable>
-      <BabyAlarmPanel kind="diaper" />
       <FlatList
         data={diapers}
         keyExtractor={(d) => d.id}

@@ -70,43 +70,47 @@ export function BabySleepScreen() {
     }
   };
 
-  if (loading) {
+  if (error && sleeps.length === 0) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator color="#7EB8DA" />
+      <View style={styles.container}>
+        <Text style={styles.title}>{t('tabs.sleep')}</Text>
+        <BabyAlarmPanel kind="sleep" />
+        <ErrorState message={error} onRetry={reload} />
       </View>
     );
-  }
-
-  if (error && sleeps.length === 0) {
-    return <ErrorState message={error} onRetry={reload} />;
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('tabs.sleep')}</Text>
-      <View style={styles.row}>
-        <Pressable style={styles.bigBtn} onPress={startSleep}>
-          <Text style={styles.bigBtnText}>{t('screens.start_sleep')}</Text>
-        </Pressable>
-        <Pressable style={[styles.bigBtn, styles.endBtn]} onPress={endSleep}>
-          <Text style={styles.bigBtnText}>{t('screens.end_sleep')}</Text>
-        </Pressable>
-      </View>
       <BabyAlarmPanel kind="sleep" />
-      <FlatList
-        data={sleeps}
-        keyExtractor={(s) => s.id}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor="#7EB8DA" />}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>
-              {item.start_time?.slice(0, 16).replace('T', ' ')}
-              {item.end_time ? ` → ${item.end_time.slice(11, 16)}` : ` (${t('screens.in_progress')})`}
-            </Text>
+      {loading ? (
+        <ActivityIndicator color="#7EB8DA" />
+      ) : (
+        <>
+          <View style={styles.row}>
+            <Pressable style={styles.bigBtn} onPress={startSleep}>
+              <Text style={styles.bigBtnText}>{t('screens.start_sleep')}</Text>
+            </Pressable>
+            <Pressable style={[styles.bigBtn, styles.endBtn]} onPress={endSleep}>
+              <Text style={styles.bigBtnText}>{t('screens.end_sleep')}</Text>
+            </Pressable>
           </View>
-        )}
-      />
+          <FlatList
+            data={sleeps}
+            keyExtractor={(s) => s.id}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor="#7EB8DA" />}
+            renderItem={({ item }) => (
+              <View style={styles.card}>
+                <Text style={styles.cardTitle}>
+                  {item.start_time?.slice(0, 16).replace('T', ' ')}
+                  {item.end_time ? ` → ${item.end_time.slice(11, 16)}` : ` (${t('screens.in_progress')})`}
+                </Text>
+              </View>
+            )}
+          />
+        </>
+      )}
     </View>
   );
 }

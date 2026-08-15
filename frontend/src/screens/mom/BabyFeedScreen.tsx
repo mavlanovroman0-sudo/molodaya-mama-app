@@ -58,60 +58,56 @@ export function BabyFeedScreen() {
     }
   };
 
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator color="#7EB8DA" />
-      </View>
-    );
-  }
-
-  if (error && feeds.length === 0) {
-    return <ErrorState message={error} onRetry={reload} />;
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('tabs.feeding')}</Text>
-      <View style={styles.typeRow}>
-        {(['breast', 'formula'] as const).map((ft) => (
-          <Pressable
-            key={ft}
-            style={[styles.chip, feedType === ft && styles.chipActive]}
-            onPress={() => setFeedType(ft)}
-          >
-            <Text style={[styles.chipText, feedType === ft && styles.chipTextActive]}>
-              {t(`screens.feed_${ft}`)}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        value={duration}
-        onChangeText={setDuration}
-        placeholder={t('screens.duration_min')}
-      />
-      <Pressable style={styles.bigBtn} onPress={addFeed}>
-        <Text style={styles.bigBtnText}>+ {t('screens.add_feed')}</Text>
-      </Pressable>
       <BabyAlarmPanel kind="feeding" />
-      <FlatList
-        data={feeds}
-        keyExtractor={(f) => f.id}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor="#7EB8DA" />}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>{t(`screens.feed_${item.feed_type}`)}</Text>
-            <Text style={styles.cardMeta}>
-              {item.duration_minutes} {t('screens.min')}
-              {item.volume_ml ? ` · ${item.volume_ml} ml` : ''}
-            </Text>
-            <Text style={styles.time}>{item.feed_time?.slice(0, 16).replace('T', ' ')}</Text>
+      {loading ? (
+        <ActivityIndicator color="#7EB8DA" />
+      ) : error && feeds.length === 0 ? (
+        <ErrorState message={error} onRetry={reload} />
+      ) : (
+        <>
+          <View style={styles.typeRow}>
+            {(['breast', 'formula'] as const).map((ft) => (
+              <Pressable
+                key={ft}
+                style={[styles.chip, feedType === ft && styles.chipActive]}
+                onPress={() => setFeedType(ft)}
+              >
+                <Text style={[styles.chipText, feedType === ft && styles.chipTextActive]}>
+                  {t(`screens.feed_${ft}`)}
+                </Text>
+              </Pressable>
+            ))}
           </View>
-        )}
-      />
+          <TextInput
+            style={styles.input}
+            keyboardType="numeric"
+            value={duration}
+            onChangeText={setDuration}
+            placeholder={t('screens.duration_min')}
+          />
+          <Pressable style={styles.bigBtn} onPress={addFeed}>
+            <Text style={styles.bigBtnText}>+ {t('screens.add_feed')}</Text>
+          </Pressable>
+          <FlatList
+            data={feeds}
+            keyExtractor={(f) => f.id}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor="#7EB8DA" />}
+            renderItem={({ item }) => (
+              <View style={styles.card}>
+                <Text style={styles.cardTitle}>{t(`screens.feed_${item.feed_type}`)}</Text>
+                <Text style={styles.cardMeta}>
+                  {item.duration_minutes} {t('screens.min')}
+                  {item.volume_ml ? ` · ${item.volume_ml} ml` : ''}
+                </Text>
+                <Text style={styles.time}>{item.feed_time?.slice(0, 16).replace('T', ' ')}</Text>
+              </View>
+            )}
+          />
+        </>
+      )}
     </View>
   );
 }

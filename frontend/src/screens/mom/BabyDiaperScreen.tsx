@@ -14,6 +14,7 @@ import { ErrorState } from '../../components/ErrorState';
 import { useApiList } from '../../hooks/useApiList';
 import { api } from '../../services/api';
 import { useAppStore } from '../../store/appStore';
+import { BabyAlarmPanel } from '../../components/BabyAlarmPanel';
 
 type Diaper = { id: string; diaper_type: string; change_time: string | null };
 
@@ -71,6 +72,7 @@ export function BabyDiaperScreen() {
       <Pressable style={styles.bigBtn} onPress={addDiaper}>
         <Text style={styles.bigBtnText}>+ {t('screens.add_diaper')}</Text>
       </Pressable>
+      <BabyAlarmPanel kind="diaper" />
       <FlatList
         data={diapers}
         keyExtractor={(d) => d.id}

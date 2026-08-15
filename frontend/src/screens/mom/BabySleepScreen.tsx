@@ -14,6 +14,7 @@ import { ErrorState } from '../../components/ErrorState';
 import { useApiList } from '../../hooks/useApiList';
 import { api } from '../../services/api';
 import { useAppStore } from '../../store/appStore';
+import { BabyAlarmPanel } from '../../components/BabyAlarmPanel';
 
 type Sleep = {
   id: string;
@@ -92,6 +93,7 @@ export function BabySleepScreen() {
           <Text style={styles.bigBtnText}>{t('screens.end_sleep')}</Text>
         </Pressable>
       </View>
+      <BabyAlarmPanel kind="sleep" />
       <FlatList
         data={sleeps}
         keyExtractor={(s) => s.id}

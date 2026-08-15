@@ -22,7 +22,11 @@ import { SubscriptionGateNavigator } from './src/navigation/SubscriptionGate';
 
 import { ErrorBoundary } from './src/components/ErrorBoundary';
 
+import { AlarmRingModal } from './src/components/AlarmRingModal';
+
 import { api, initApiAuth } from './src/services/api';
+
+import { startBabyAlarmRuntime } from './src/services/babyAlarms';
 
 import { initSentry, registerNavigationContainer, wrapWithSentry } from './src/services/sentry';
 
@@ -200,6 +204,28 @@ function App() {
 
   useEffect(() => {
 
+    if (!ready) return undefined;
+
+    let cleanup: (() => void) | undefined;
+
+    void startBabyAlarmRuntime().then((stop) => {
+
+      cleanup = stop;
+
+    });
+
+    return () => {
+
+      cleanup?.();
+
+    };
+
+  }, [ready]);
+
+
+
+  useEffect(() => {
+
     if (!ready) return;
 
     Linking.getInitialURL().then(handleDeepLink);
@@ -247,6 +273,8 @@ function App() {
         {token ? <AppContent /> : <AuthStackNavigator />}
 
       </NavigationContainer>
+
+      <AlarmRingModal />
 
     </ErrorBoundary>
 

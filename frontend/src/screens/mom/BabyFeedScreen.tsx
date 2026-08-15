@@ -15,6 +15,7 @@ import { ErrorState } from '../../components/ErrorState';
 import { useApiList } from '../../hooks/useApiList';
 import { api } from '../../services/api';
 import { useAppStore } from '../../store/appStore';
+import { BabyAlarmPanel } from '../../components/BabyAlarmPanel';
 
 type Feed = {
   id: string;
@@ -95,6 +96,7 @@ export function BabyFeedScreen() {
       <Pressable style={styles.bigBtn} onPress={addFeed}>
         <Text style={styles.bigBtnText}>+ {t('screens.add_feed')}</Text>
       </Pressable>
+      <BabyAlarmPanel kind="feeding" />
       <FlatList
         data={feeds}
         keyExtractor={(f) => f.id}

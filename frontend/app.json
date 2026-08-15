@@ -13,7 +13,14 @@
       "backgroundColor": "#F8F4F0"
     },
     "android": {
-      "package": "com.homeease.app"
+      "package": "com.homeease.app",
+      "permissions": [
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "android.permission.VIBRATE",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.WAKE_LOCK"
+      ]
     },
     "ios": {
       "bundleIdentifier": "com.homeease.app"

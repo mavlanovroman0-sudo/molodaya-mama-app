@@ -36,3 +36,7 @@ coverage/
 # Logs
 *.log
 npm-debug.log*
+
+# Готовый сайт для сборки без Docker Hub
+!frontend/prebuilt-web/
+!frontend/prebuilt-web/**

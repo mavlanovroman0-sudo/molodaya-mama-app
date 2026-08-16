@@ -23,6 +23,16 @@ if (!fs.existsSync(src)) throw new Error('missing ' + src);
 rmrf(dest);
 copyDir(src, dest);
 
+const webStatic = path.join('frontend', 'web-static');
+if (fs.existsSync(webStatic)) {
+  for (const entry of fs.readdirSync(webStatic, { withFileTypes: true })) {
+    const from = path.join(webStatic, entry.name);
+    const to = path.join(dest, entry.name);
+    if (entry.isDirectory()) copyDir(from, to);
+    else fs.copyFileSync(from, to);
+  }
+}
+
 const indexPath = path.join(dest, 'index.html');
 let html = fs.readFileSync(indexPath, 'utf8');
 if (!html.includes('<title>')) {

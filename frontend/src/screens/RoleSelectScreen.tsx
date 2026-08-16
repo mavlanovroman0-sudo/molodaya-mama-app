@@ -93,7 +93,7 @@ export function RoleSelectScreen({
     <ImageBackground source={images.authBg} style={styles.screen} resizeMode="cover">
       <View style={styles.overlay} />
       <Animated.View style={[styles.header, { opacity: titleAnim }]}>
-        <Text style={styles.appTitle}>молодая мама</Text>
+        <Text style={styles.appTitle}>{t('app.title')}</Text>
         <View style={styles.buttonsRow}>
           <RoleCard
             label={t('roles.experienced_mom')}

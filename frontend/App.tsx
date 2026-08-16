@@ -171,19 +171,19 @@ function App() {
 
         requestSubscriptionRefresh();
 
-        Alert.alert('молодая мама', t('subscription.payment_success'));
+        Alert.alert(t('app.title'), t('subscription.payment_success'));
 
       } catch {
 
         requestSubscriptionRefresh();
 
-        Alert.alert('молодая мама', t('subscription.checkout_hint'));
+        Alert.alert(t('app.title'), t('subscription.checkout_hint'));
 
       }
 
     } else if (isSubscriptionCancelUrl(url)) {
 
-      Alert.alert('молодая мама', t('subscription.payment_cancelled'));
+      Alert.alert(t('app.title'), t('subscription.payment_cancelled'));
 
     }
 

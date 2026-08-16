@@ -34,6 +34,7 @@ function notifyLanguageListeners() {
   languageListeners.forEach((fn) => fn());
   if (Platform.OS === 'web' && typeof document !== 'undefined') {
     document.documentElement.lang = currentLang;
+    document.title = t('app.title');
   }
 }
 

@@ -4,6 +4,7 @@ import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import { api } from '../services/api';
 import { useAppStore } from '../store/appStore';
+import { t } from '../i18n';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -55,7 +56,7 @@ export function usePushNotifications() {
     const sub = Notifications.addNotificationReceivedListener((notification) => {
       const data = notification.request.content.data as { alarmId?: string } | undefined;
       if (data?.alarmId) return;
-      const title = notification.request.content.title || 'молодая мама';
+      const title = notification.request.content.title || t('app.title');
       const body = notification.request.content.body || '';
       Alert.alert(title, body);
     });

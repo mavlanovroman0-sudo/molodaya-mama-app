@@ -36,6 +36,15 @@ describe('i18n', () => {
     expect(t('common.change_language', 'ru')).toBe('Сменить язык');
   });
 
+  it('translates exit on every language', () => {
+    expect(t('common.exit', 'ru')).toBe('Выход');
+    expect(t('common.exit', 'kk')).toBe('Шығу');
+    expect(t('common.exit', 'uz')).toBe('Chiqish');
+    expect(t('common.exit', 'tg')).toBe('Баромад');
+    expect(t('common.exit', 'ka')).toBe('გასვლა');
+    expect(t('common.exit', 'ky')).toBe('Чыгуу');
+  });
+
   it('has instruction packs for all languages', () => {
     const langs = ['ru', 'kk', 'uz', 'tg', 'ka', 'ky'] as const;
     for (const lang of langs) {

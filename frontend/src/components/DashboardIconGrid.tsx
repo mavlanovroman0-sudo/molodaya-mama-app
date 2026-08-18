@@ -6,11 +6,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import type { ImageSourcePropType } from 'react-native';
+import { AppIcon } from './AppIcon';
+import { uiFontStyle } from '../theme/fonts';
 
 export type DashboardGridItem = {
-  icon: keyof typeof Ionicons.glyphMap;
+  icon: string;
   label: string;
   onPress: () => void;
 };
@@ -43,7 +44,7 @@ export function DashboardIconGrid({ source, rows }: Props) {
                   accessibilityLabel={item.label}
                 >
                   <View style={styles.iconCircle}>
-                    <Ionicons name={item.icon} size={48} color="#FFFFFF" style={styles.iconShadow} />
+                    <AppIcon name={item.icon} size={34} color="#FFFFFF" />
                   </View>
                   <Text style={styles.label} numberOfLines={2}>
                     {item.label}
@@ -69,62 +70,60 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
-  },
-  bgImage: {
-    resizeMode: 'cover',
   },
   grid: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 12,
-    gap: 30,
+    paddingBottom: 12,
+    gap: 28,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    gap: 20,
+    gap: 22,
   },
   rowCentered: {
     justifyContent: 'center',
   },
   item: {
-    width: 96,
+    width: 88,
     alignItems: 'center',
-    opacity: 0.92,
   },
   iconCircle: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: 'rgba(0, 0, 0, 0.28)',
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(255, 255, 255, 0.7)',
+    overflow: 'visible',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.35,
     shadowRadius: 4,
     elevation: 4,
   },
-  iconShadow: {
-    textShadowColor: 'rgba(0, 0, 0, 0.45)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 4,
-  },
   label: {
-    fontFamily: 'Arial, "Segoe UI", sans-serif',
+    ...uiFontStyle,
     marginTop: 6,
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#2D1C1E',
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#FFFFFF',
     textAlign: 'center',
-    textShadowColor: 'rgba(255,255,255,0.85)',
+    includeFontPadding: false,
+    maxWidth: 88,
+    textShadowColor: 'rgba(0, 0, 0, 0.85)',
     textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
-    maxWidth: 92,
+    textShadowRadius: 3,
+    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    borderRadius: 4,
+    overflow: 'hidden',
   },
 });

@@ -31,6 +31,37 @@ def format_yookassa_amount(amount_minor: int, currency: str) -> str:
     return f"{amount_minor / 100:.2f}"
 
 
+def build_yookassa_receipt(
+    email: str,
+    plan: str,
+    amount_value: str,
+    currency: str,
+    vat_code: int = 1,
+) -> dict[str, Any]:
+    """Чек 54-ФЗ: боевой магазин ЮKassa без него отклоняет платёж."""
+    period = "год" if plan == "yearly" else "месяц"
+    return {
+        "customer": {"email": email},
+        "items": [
+            {
+                "description": f"Подписка молодая мама, {period}",
+                "quantity": "1.00",
+                "amount": {"value": amount_value, "currency": currency},
+                "vat_code": vat_code,
+                "payment_mode": "full_payment",
+                "payment_subject": "service",
+            }
+        ],
+    }
+
+
+def _yookassa_error_message(exc: BaseException) -> str:
+    args = getattr(exc, "args", ())
+    if args and isinstance(args[0], dict):
+        return str(args[0].get("description") or args[0])
+    return str(exc)
+
+
 def subscription_period_end(plan: str, start: datetime | None = None) -> datetime:
     start = start or datetime.now(timezone.utc)
     days = 365 if plan == "yearly" else 30
@@ -84,24 +115,33 @@ class YooKassaProvider:
         currency = _yookassa_currency(pricing["currency"])
         return_url = success_url or settings.payment_success_url
 
+        if not email or "@" not in email:
+            raise RuntimeError("Для чека ЮKassa нужна электронная почта в аккаунте")
+
         def _create() -> str:
             from yookassa import Payment
 
-            payment = Payment.create(
-                {
-                    "amount": {"value": amount_value, "currency": currency},
-                    "confirmation": {"type": "redirect", "return_url": return_url},
-                    "capture": True,
-                    "description": f"молодая мама ({plan}, {country_code})",
-                    "metadata": {
-                        "user_id": str(user_id),
-                        "plan": plan,
-                        "country_code": country_code.upper(),
-                        "email": email,
+            try:
+                payment = Payment.create(
+                    {
+                        "amount": {"value": amount_value, "currency": currency},
+                        "confirmation": {"type": "redirect", "return_url": return_url},
+                        "capture": True,
+                        "description": f"молодая мама ({plan}, {country_code})",
+                        "receipt": build_yookassa_receipt(
+                            email, plan, amount_value, currency
+                        ),
+                        "metadata": {
+                            "user_id": str(user_id),
+                            "plan": plan,
+                            "country_code": country_code.upper(),
+                            "email": email,
+                        },
                     },
-                },
-                uuid.uuid4(),
-            )
+                    uuid.uuid4(),
+                )
+            except Exception as exc:
+                raise RuntimeError(f"YooKassa: {_yookassa_error_message(exc)}") from exc
             url = payment.confirmation.confirmation_url
             if not url:
                 raise RuntimeError("YooKassa не вернула confirmation_url")

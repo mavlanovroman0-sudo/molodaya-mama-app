@@ -12,6 +12,7 @@ from app.services.payment import MockPaymentProvider, get_payment_provider
 from app.services.yookassa_provider import (
     YooKassaPaymentProvider,
     YooKassaProvider,
+    build_yookassa_receipt,
     format_yookassa_amount,
     subscription_period_end,
 )
@@ -19,6 +20,16 @@ from app.services.yookassa_provider import (
 
 def test_format_yookassa_amount_rub():
     assert format_yookassa_amount(24900, "rub") == "249.00"
+
+
+def test_build_yookassa_receipt_monthly():
+    receipt = build_yookassa_receipt("a@b.com", "monthly", "249.00", "RUB")
+    assert receipt["customer"]["email"] == "a@b.com"
+    item = receipt["items"][0]
+    assert item["amount"] == {"value": "249.00", "currency": "RUB"}
+    assert item["vat_code"] == 1
+    assert item["payment_subject"] == "service"
+    assert "месяц" in item["description"]
 
 
 def test_format_yookassa_amount_uzs_whole_units():

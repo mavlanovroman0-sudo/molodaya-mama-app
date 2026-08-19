@@ -116,18 +116,23 @@ async def cancel_subscription(user: User = Depends(get_current_user), db: AsyncS
     sub = await get_latest_subscription(db, user.id)
     if (
         not sub
-        or not sub.provider_subscription_id
         or sub.status != SubscriptionStatus.active
         or sub.provider in ("internal", "")
     ):
         raise HTTPException(404, "No active paid subscription")
 
-    try:
-        provider = get_payment_provider(sub.provider)
-        await provider.cancel_subscription(sub.provider_subscription_id)
-    except RuntimeError:
-        # Одноразовые провайдеры: локальная отмена автопродления до end_date
-        pass
+    provider_id = sub.provider_subscription_id or sub.provider_payment_id
+    if provider_id:
+        try:
+            provider = get_payment_provider(sub.provider)
+            await provider.cancel_subscription(provider_id)
+        except Exception:
+            # Одноразовые провайдеры: локальная отмена до конца оплаченного периода
+            pass
 
-    await cancel_subscription_record(db, sub.provider_subscription_id)
+    if provider_id:
+        await cancel_subscription_record(db, provider_id)
+    if sub.status != SubscriptionStatus.expired:
+        sub.status = SubscriptionStatus.canceled
+        await db.flush()
     return {"status": "cancel_scheduled", "access_until": sub.end_date.isoformat() if sub.end_date else None}

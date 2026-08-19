@@ -133,7 +133,6 @@ async def build_subscription_status(db: AsyncSession, user: User) -> dict:
         sub
         and sub.status == SubscriptionStatus.active
         and sub.plan != SubscriptionPlan.trial
-        and sub.provider_subscription_id
         and sub.provider not in ("internal", "")
     )
 

@@ -155,19 +155,32 @@ export function SubscriptionScreen({ onAccessGranted }: Props) {
     }
   };
 
+  const runCancel = async () => {
+    try {
+      await cancel();
+      showPayAlert(t('subscription.cancelled'));
+    } catch (e) {
+      showPayAlert(t('subscription.error'), e instanceof Error ? e.message : '');
+    }
+  };
+
   const handleCancel = async () => {
-    Alert.alert(t('subscription.cancel_confirm_title'), t('subscription.cancel_confirm_body'), [
+    const title = t('subscription.cancel_confirm_title');
+    const body = t('subscription.cancel_confirm_body');
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      if (!window.confirm(body ? `${title}\n${body}` : title)) {
+        return;
+      }
+      await runCancel();
+      return;
+    }
+    Alert.alert(title, body, [
       { text: t('subscription.cancel_no'), style: 'cancel' },
       {
         text: t('subscription.cancel_yes'),
         style: 'destructive',
-        onPress: async () => {
-          try {
-            await cancel();
-            Alert.alert(t('subscription.cancelled'));
-          } catch (e) {
-            Alert.alert(t('subscription.error'), e instanceof Error ? e.message : '');
-          }
+        onPress: () => {
+          void runCancel();
         },
       },
     ]);

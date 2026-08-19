@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Оплата отменена — Молодая мама</title>
+    <style>
+      body {
+        font-family: Arial, "Segoe UI", sans-serif;
+        background: #f8f4f0;
+        color: #3d2c2e;
+        text-align: center;
+        padding: 48px 20px;
+        line-height: 1.5;
+      }
+      a.btn {
+        display: inline-block;
+        margin-top: 20px;
+        background: #d4919a;
+        color: #fff;
+        text-decoration: none;
+        padding: 14px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+      }
+      a.site {
+        display: block;
+        margin-top: 18px;
+        color: #7a6568;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Оплата отменена. Открываем приложение…</p>
+    <p>
+      <a class="btn" href="homeease://payment/cancel">Открыть приложение</a>
+    </p>
+    <p><a class="site" href="/">Открыть сайт</a></p>
+    <script>
+      (function () {
+        var appUrl = "homeease://payment/cancel";
+        var intentUrl =
+          "intent://payment/cancel#Intent;scheme=homeease;package=com.homeease.app;end";
+        var ua = navigator.userAgent || "";
+        var mobile = /Android|iPhone|iPad|iPod/i.test(ua);
+        if (!mobile) {
+          window.location.replace("/");
+          return;
+        }
+        window.location.replace(/Android/i.test(ua) ? intentUrl : appUrl);
+      })();
+    </script>
+  </body>
+</html>

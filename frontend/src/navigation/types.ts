@@ -7,6 +7,7 @@ export type AuthStackParamList = {
   Register: undefined;
   PrivacyPolicy: undefined;
   Terms: undefined;
+  Legal: undefined;
   Language: undefined;
 };
 

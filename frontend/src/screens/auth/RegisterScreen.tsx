@@ -39,7 +39,12 @@ export function RegisterScreen({ navigation }: Props) {
       setSubmitting(true);
       await register(email.trim(), password, name.trim());
     } catch (e) {
-      setError(e instanceof Error ? e.message : t('auth.registration_failed'));
+      const raw = e instanceof Error ? e.message : '';
+      if (/network request failed/i.test(raw) || /failed to fetch/i.test(raw)) {
+        setError('Нет связи с сайтом. Выключите VPN и проверьте интернет.');
+      } else {
+        setError(raw || t('auth.registration_failed'));
+      }
     } finally {
       setSubmitting(false);
     }
@@ -101,6 +106,16 @@ export function RegisterScreen({ navigation }: Props) {
           </Pressable>
 
           <Pressable
+            onPress={() => navigation.navigate('Legal')}
+            style={styles.legalLinkWrap}
+            accessibilityRole="link"
+            accessibilityLabel={t('legal.combined_link')}
+          >
+            <Text style={styles.legalLink}>{t('legal.combined_link')}</Text>
+          </Pressable>
+          <Text style={styles.legalNotice}>{t('legal.register_agree')}</Text>
+
+          <Pressable
             onPress={() => navigation.navigate('Language')}
             style={styles.linkWrap}
             accessibilityRole="button"
@@ -117,17 +132,6 @@ export function RegisterScreen({ navigation }: Props) {
           >
             <Text style={styles.link}>{t('auth.already_have_account')}</Text>
           </Pressable>
-
-          <View style={styles.legalRow}>
-            <Text style={styles.legalText}>{t('legal.accept_prefix')} </Text>
-            <Pressable onPress={() => navigation.navigate('PrivacyPolicy')}>
-              <Text style={styles.legalLink}>{t('legal.privacy_link')}</Text>
-            </Pressable>
-            <Text style={styles.legalText}> {t('legal.and')} </Text>
-            <Pressable onPress={() => navigation.navigate('Terms')}>
-              <Text style={styles.legalLink}>{t('legal.terms_link')}</Text>
-            </Pressable>
-          </View>
         </View>
       </View>
     </AuthBackground>
@@ -181,23 +185,25 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '500',
   },
-  legalRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+  legalLinkWrap: {
     marginTop: 16,
-    paddingHorizontal: 4,
+    alignItems: 'center',
+    minHeight: 36,
+    justifyContent: 'center',
   },
-  legalText: {
+  legalLink: {
+    fontSize: 15,
+    color: '#1565C0',
+    fontWeight: '600',
+    textDecorationLine: 'underline',
+    lineHeight: 20,
+  },
+  legalNotice: {
+    marginTop: 8,
     fontSize: 12,
     color: colors.textMuted,
     lineHeight: 18,
-  },
-  legalLink: {
-    fontSize: 12,
-    color: colors.primary,
-    fontWeight: '600',
-    textDecorationLine: 'underline',
-    lineHeight: 18,
+    textAlign: 'center',
+    paddingHorizontal: 4,
   },
 });

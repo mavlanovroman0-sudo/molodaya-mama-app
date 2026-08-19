@@ -1,10 +1,10 @@
 import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import type { NavigationProp, ParamListBase } from '@react-navigation/native';
 import type { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { t } from '../i18n';
 import { navTheme } from '../theme/navigationTheme';
+import { uiFontStyle } from '../theme/fonts';
 
 const SCREEN_TITLE_KEYS: Record<string, string> = {
   Login: 'auth.login',
@@ -26,6 +26,7 @@ const SCREEN_TITLE_KEYS: Record<string, string> = {
   Subscription: 'subscription.title',
   PrivacyPolicy: 'legal.privacy_title',
   Terms: 'legal.terms_title',
+  Legal: 'legal.combined_title',
   Paywall: 'subscription.title',
   Instruction: 'common.instruction_title',
   Language: 'common.change_language',
@@ -65,18 +66,18 @@ export function goBackOrRoleSelect(navigation: NavigationProp<ParamListBase>): v
 
 type BackButtonProps = {
   navigation: NavigationProp<ParamListBase>;
-  tintColor?: string;
 };
 
-export function BackButton({ navigation, tintColor = navTheme.headerTint }: BackButtonProps) {
+export function BackButton({ navigation }: BackButtonProps) {
   return (
     <Pressable
       onPress={() => goBackOrRoleSelect(navigation)}
       style={styles.backBtn}
+      hitSlop={16}
       accessibilityRole="button"
       accessibilityLabel={t('common.back')}
     >
-      <Ionicons name="arrow-back" size={24} color={tintColor} />
+      <Text style={styles.backArrow}>←</Text>
     </Pressable>
   );
 }
@@ -91,8 +92,9 @@ export function createStackHeaderOptions(
     headerStyle: { backgroundColor: navTheme.headerBg },
     headerShadowVisible: false,
     headerTintColor: navTheme.headerTint,
+    headerBackVisible: false,
     headerTitleStyle: {
-      fontFamily: 'Arial, "Segoe UI", sans-serif',
+      ...uiFontStyle,
       fontWeight: '600',
       fontSize: 17,
       color: navTheme.headerTint,
@@ -101,13 +103,23 @@ export function createStackHeaderOptions(
     headerLeft: showBack
       ? () => <BackButton navigation={navigation} />
       : undefined,
+    headerLeftContainerStyle: { paddingLeft: 4, minWidth: 44 },
   };
 }
 
 const styles = StyleSheet.create({
   backBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginLeft: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    justifyContent: 'center',
+    minWidth: 40,
+    minHeight: 40,
+  },
+  backArrow: {
+    color: navTheme.headerTint,
+    fontSize: 28,
+    lineHeight: 32,
+    fontWeight: '600',
+    includeFontPadding: false,
   },
 });

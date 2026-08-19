@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import re
 import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Any
@@ -23,6 +24,14 @@ def _yookassa_currency(code: str) -> str:
     return code.upper()
 
 
+_RECEIPT_EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
+def normalize_receipt_email(email: str | None) -> str:
+    value = (email or "").strip()
+    return value if _RECEIPT_EMAIL.match(value) else ""
+
+
 def format_yookassa_amount(amount_minor: int, currency: str) -> str:
     """Конвертация суммы из COUNTRY_PRICING в строку для YooKassa API."""
     cur = currency.lower()
@@ -37,15 +46,21 @@ def build_yookassa_receipt(
     amount_value: str,
     currency: str,
     vat_code: int = 1,
+    phone: str | None = None,
 ) -> dict[str, Any]:
     """Чек 54-ФЗ: боевой магазин ЮKassa без него отклоняет платёж."""
     period = "год" if plan == "yearly" else "месяц"
+    customer: dict[str, str] = {"email": email}
+    phone_norm = (phone or "").strip()
+    if phone_norm:
+        customer["phone"] = phone_norm
     return {
-        "customer": {"email": email},
+        "customer": customer,
+        "email": email,
         "items": [
             {
                 "description": f"Подписка молодая мама, {period}",
-                "quantity": "1.00",
+                "quantity": 1.0,
                 "amount": {"value": amount_value, "currency": currency},
                 "vat_code": vat_code,
                 "payment_mode": "full_payment",
@@ -115,34 +130,50 @@ class YooKassaProvider:
         currency = _yookassa_currency(pricing["currency"])
         return_url = success_url or settings.payment_success_url
 
-        if not email or "@" not in email:
-            raise RuntimeError("Для чека ЮKassa нужна электронная почта в аккаунте")
+        email_norm = normalize_receipt_email(email)
+        if not email_norm:
+            raise RuntimeError(
+                "В аккаунте нет почты для чека. Выйдите и войдите снова по электронной почте."
+            )
 
         def _create() -> str:
-            from yookassa import Payment
+            import requests
+            from requests.auth import HTTPBasicAuth
 
+            payload = {
+                "amount": {"value": amount_value, "currency": currency},
+                "confirmation": {"type": "redirect", "return_url": return_url},
+                "capture": True,
+                "description": f"молодая мама ({plan}, {country_code})",
+                "receipt": build_yookassa_receipt(
+                    email_norm, plan, amount_value, currency
+                ),
+                "metadata": {
+                    "user_id": str(user_id),
+                    "plan": plan,
+                    "country_code": country_code.upper(),
+                    "email": email_norm,
+                },
+            }
             try:
-                payment = Payment.create(
-                    {
-                        "amount": {"value": amount_value, "currency": currency},
-                        "confirmation": {"type": "redirect", "return_url": return_url},
-                        "capture": True,
-                        "description": f"молодая мама ({plan}, {country_code})",
-                        "receipt": build_yookassa_receipt(
-                            email, plan, amount_value, currency
-                        ),
-                        "metadata": {
-                            "user_id": str(user_id),
-                            "plan": plan,
-                            "country_code": country_code.upper(),
-                            "email": email,
-                        },
+                response = requests.post(
+                    "https://api.yookassa.ru/v3/payments",
+                    auth=HTTPBasicAuth(str(self._shop_id), str(self._secret_key)),
+                    headers={
+                        "Idempotence-Key": str(uuid.uuid4()),
+                        "Content-Type": "application/json",
                     },
-                    uuid.uuid4(),
+                    json=payload,
+                    timeout=30,
                 )
+                data = response.json() if response.content else {}
             except Exception as exc:
                 raise RuntimeError(f"YooKassa: {_yookassa_error_message(exc)}") from exc
-            url = payment.confirmation.confirmation_url
+            if response.status_code >= 400:
+                raise RuntimeError(
+                    f"YooKassa: {data.get('description') or data or response.status_code}"
+                )
+            url = (data.get("confirmation") or {}).get("confirmation_url")
             if not url:
                 raise RuntimeError("YooKassa не вернула confirmation_url")
             return url

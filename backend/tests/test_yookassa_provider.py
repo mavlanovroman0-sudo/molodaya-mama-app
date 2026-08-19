@@ -14,6 +14,7 @@ from app.services.yookassa_provider import (
     YooKassaProvider,
     build_yookassa_receipt,
     format_yookassa_amount,
+    normalize_receipt_email,
     subscription_period_end,
 )
 
@@ -25,11 +26,18 @@ def test_format_yookassa_amount_rub():
 def test_build_yookassa_receipt_monthly():
     receipt = build_yookassa_receipt("a@b.com", "monthly", "249.00", "RUB")
     assert receipt["customer"]["email"] == "a@b.com"
+    assert receipt["email"] == "a@b.com"
     item = receipt["items"][0]
     assert item["amount"] == {"value": "249.00", "currency": "RUB"}
     assert item["vat_code"] == 1
     assert item["payment_subject"] == "service"
     assert "месяц" in item["description"]
+
+
+def test_normalize_receipt_email():
+    assert normalize_receipt_email("  a@b.com ") == "a@b.com"
+    assert normalize_receipt_email("") == ""
+    assert normalize_receipt_email("not-an-email") == ""
 
 
 def test_format_yookassa_amount_uzs_whole_units():

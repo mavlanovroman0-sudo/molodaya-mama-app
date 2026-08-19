@@ -29,6 +29,14 @@ type Props = {
   onAccessGranted?: () => void;
 };
 
+function showPayAlert(title: string, body?: string) {
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    window.alert(body ? `${title}\n${body}` : title);
+    return;
+  }
+  Alert.alert(title, body);
+}
+
 function formatEndDate(iso: string | null | undefined, locale: string): string | null {
   if (!iso) return null;
   try {
@@ -133,15 +141,15 @@ export function SubscriptionScreen({ onAccessGranted }: Props) {
       const result = await checkout(selectedPlan, selectedProvider);
       if (result.checkout_url) {
         setPolling(true);
-        if (Platform.OS === 'web' && typeof globalThis !== 'undefined' && 'open' in globalThis) {
-          (globalThis as Window).open(result.checkout_url, '_blank', 'noopener,noreferrer');
-        } else {
-          await Linking.openURL(result.checkout_url);
+        if (Platform.OS === 'web' && typeof window !== 'undefined') {
+          window.location.assign(result.checkout_url);
+          return;
         }
-        Alert.alert(t('subscription.checkout_opened'), t('subscription.checkout_hint'));
+        await Linking.openURL(result.checkout_url);
+        showPayAlert(t('subscription.checkout_opened'), t('subscription.checkout_hint'));
       }
     } catch (e) {
-      Alert.alert(t('subscription.error'), e instanceof Error ? e.message : '');
+      showPayAlert(t('subscription.error'), e instanceof Error ? e.message : '');
     } finally {
       setBusy(false);
     }
@@ -314,6 +322,13 @@ export function SubscriptionScreen({ onAccessGranted }: Props) {
       <Text style={styles.footnote}>
         {t('subscription.trial_info', { days: String(status.trial_days) })}
       </Text>
+
+      <View style={styles.cardsBox}>
+        <Text style={styles.cardsHeading}>{t('subscription.cards_heading')}</Text>
+        <Text style={styles.cardsBody}>{t('subscription.cards_body')}</Text>
+      </View>
+
+      <Text style={styles.otherCountriesNote}>{t('subscription.other_countries_note')}</Text>
     </ScrollView>
   );
 }
@@ -455,6 +470,35 @@ const styles = StyleSheet.create({
     marginTop: 8,
     maxWidth: 320,
   },
-  footnote: { fontSize: 12, color: '#7A6568', textAlign: 'center', marginTop: 16 },
+  footnote: { fontSize: 12, color: '#7A6568', textAlign: 'center', marginTop: 16, maxWidth: 360 },
+  cardsBox: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 14,
+    marginTop: 16,
+  },
+  cardsHeading: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#3D2C2E',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  cardsBody: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: '#4A4A4A',
+    textAlign: 'left',
+  },
+  otherCountriesNote: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: '#7A6568',
+    textAlign: 'center',
+    marginTop: 18,
+    maxWidth: 360,
+  },
   disabled: { opacity: 0.6 },
 });
